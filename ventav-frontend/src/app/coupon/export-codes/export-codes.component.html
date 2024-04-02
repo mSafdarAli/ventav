@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">Export Coupon Codes</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="bi bi-x"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form [formGroup]="form" (ngSubmit)="submit()" class="mt-2">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <app-date-picker placeholderText="Select Date" label="Select  Date" [fControl]="form.controls['date']">
+                </app-date-picker>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-8"></div>
+
+        <div class="col-md-2">
+            <button *ngIf="couponData.length>0" class="btn btn-secondary w-100" type="submit" mat-ripple (click)="exportCoupons();">Export</button>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" type="submit" mat-ripple>Submit</button>
+        </div>
+    </div>
+</form>
+<div class="row" *ngIf="couponData.length>0">
+    <div class="col-md-12">
+        <h5>Coupon Codes</h5>
+    </div>
+</div>
+<ng-container *ngFor="let item of couponData">
+    <span class="badge bg-secondary me-1 mt-1">{{item.couponCode}}</span>
+</ng-container>

@@ -1,0 +1,81 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-1 text-center">
+                <img src="/assets/images/profile.png" onError="this.src='/assets/images/profile.png'" alt="Company-logo"
+                    title="LandGoat" class="rounded-circle avatar img-thumbnail" width="200px">
+            </div>
+            <div class="col-md-9 col-12 text-center text-md-start">
+                <h2>user name</h2>
+                <p>role</p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<form [formGroup]="form">
+    <div class="row mt-2 g-2">
+        <div class="col-md-6 col-12">
+            <fieldset class="border px-3">
+                <legend class="float-none w-auto">Personal Information
+                </legend>
+                <div class="form-group">
+                    <mat-form-field class="w-100">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Enter Your Name" formControlName="email" type="text"
+                            formControlName="name" />
+                        <mat-error>
+                            <vmessage field="name" [control]="form.controls['name']">
+                            </vmessage>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field class="w-100">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Enter Your Email" type="email" formControlName="email" />
+                        <mat-error>
+                            <vmessage field="email" [control]="form.controls['email']">
+                            </vmessage>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <lb-auto-complete appearance="outline" placeholder="Select Role" [multiple]="false" [clear]="false"
+                        [fControl]="form.controls['roleId']" [options]="selectRole">
+                    </lb-auto-complete>
+                </div>
+            </fieldset>
+
+        </div>
+        <div class="col-md-6 col-12">
+            <!-- <div >
+            <div >
+                <fieldset class="border px-3">
+                    <legend class="float-none w-auto">Contact
+                    </legend>
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Email address</mat-label>
+                            <input matInput placeholder="Enter your email" type="email" formControlName="email" />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Email address</mat-label>
+                            <input matInput placeholder="Enter your email" type="email" formControlName="email" />
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Email address</mat-label>
+                            <input matInput placeholder="Enter your email" type="email" formControlName="email" />
+                        </mat-form-field>
+                    </div>
+                </fieldset>
+            </div>
+        </div> -->
+        </div>
+    </div>
+</form>
+<app-loading></app-loading>

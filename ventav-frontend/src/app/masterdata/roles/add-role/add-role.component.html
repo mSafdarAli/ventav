@@ -1,0 +1,63 @@
+<div class="card mt-2">
+    <div class="card-body bg-primary">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-white">
+                    <i
+                    class="bi bi-arrow-left-circle-fill mt-1 me-1"
+                    mat-ripple
+                    routerLink="/masterdata/roles" [queryParams]="queryParams"
+                  ></i>  {{roleId?'Update':'Add' }} Role</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="mt-2">
+            <div class="row ">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="Enter Name" type="text" />
+                            <mat-error>
+                                <vmessage field="name" [control]="form.controls['name']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Priority</mat-label>
+                            <input matInput formControlName="priority" placeholder="Enter Name" type="number" min="1" />
+                            <mat-error>
+                                <vmessage field="priority" [control]="form.controls['priority']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="row">
+                <div class="col-md-2 offset-md-10 text-end">
+                    <button type="submit" mat-ripple class="btn btn-primary w-100">{{roleId?'Update':'Save'}}</button>
+                </div>
+            </div>
+            <div class="card my-2" *ngFor="let item of getKeys(dataSource)">
+                <div class="card-body">
+                        <h5>{{item  | titlecase }}</h5>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-12" *ngFor="let permission of getKeys(dataSource[item])">
+                                <mat-slide-toggle (change)="setPermission(item, permission, $event)" [checked]="(permissions[item] != undefined)?permissions[item][permission]: false">{{permission | titlecase}}</mat-slide-toggle>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-loading></app-loading>

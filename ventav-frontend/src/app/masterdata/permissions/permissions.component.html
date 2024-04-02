@@ -1,0 +1,41 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <h4>Permissions</h4>
+            </div>
+            <div class="col-md-4">
+                <!-- <form  [formGroup]="searchForm">
+                    <div class="form-group">
+                        <mat-form-field class="w-100" appearance="legacy">
+                            <mat-label>Search Regions</mat-label>
+                            <input matInput formControlName="q" placeholder="Search Region" type="text" (keydown.enter)="search(searchForm.value)">
+                            <mat-icon  matSuffix  (click)="search(searchForm.value)" >search</mat-icon>
+                        </mat-form-field>
+                    </div>  
+                </form> -->
+            </div>
+            <div class="col-md-2">
+                <!-- <button type="button"  mat-ripple class="btn btn-danger w-100 float-end" (click)="clearFilters()" *ngIf="isObjectEmpty(queryParams)">Clear Filters</button> -->
+            </div>
+            <div class="col-md-2">
+                <button type="button" mat-ripple class="btn btn-primary w-100 float-end" routerLink="add/{{id}}">Add
+                    Permission</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4" *ngFor="let item of getKeys(dataSource)">
+        <div class="card my-2 permission_card" >
+            <div class="card-body">
+                    <h5>{{item  | titlecase }}</h5>
+                    <div class="row">
+                        <div class="col-md-6 col-12" *ngFor="let permission of getKeys(dataSource[item])">
+                            <li>{{permission | titlecase}}</li>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

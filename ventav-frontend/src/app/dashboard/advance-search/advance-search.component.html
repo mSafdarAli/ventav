@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-6  align-items-center">
+        <h1 mat-dialog-title class="mt-0 mb-1">Advance Search</h1>
+    </div>
+    <div class="col-6 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="bi bi-x"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form [formGroup]="form" (ngSubmit)="submit()" class="mt-2">
+    <div class="row ">
+        <div class="col-md-4">
+            <div>
+                <lb-auto-complete appearance="outline" placeholder="Region" [multiple]="false" [clear]="false"
+                    [fControl]="form.controls['region']" [options]="selectRegion">
+                </lb-auto-complete>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <lb-auto-complete appearance="outline" placeholder="Firm" [multiple]="false" [clear]="false"
+                    [fControl]="form.controls['firm']" [options]="selectFirm">
+                </lb-auto-complete>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <lb-auto-complete appearance="outline" placeholder="Merchant" [multiple]="false" [clear]="false"
+                    [fControl]="form.controls['merchant']" [options]="selectMerchant">
+                </lb-auto-complete>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <lb-auto-complete appearance="outline" placeholder="Industry" [multiple]="false" [clear]="false"
+                    [fControl]="form.controls['industry']" [options]="selectIndustry">
+                </lb-auto-complete>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <lb-auto-complete appearance="outline" placeholder="Date" [multiple]="false" [clear]="false"
+                    [fControl]="form.controls['date']" [options]="selectDate">
+                </lb-auto-complete>
+            </div>
+        </div>
+        <ng-container *ngIf="form.value.date=='custom'">
+        <div class="col-md-6">
+            <div>
+                <app-date-picker placeholderText="From" [fControl]="form.controls['date_from']">
+                </app-date-picker>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <app-date-picker placeholderText="To" [fControl]="form.controls['date_to']">
+                </app-date-picker>
+            </div>
+        </div>
+    </ng-container>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button type="submit" mat-ripple class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>

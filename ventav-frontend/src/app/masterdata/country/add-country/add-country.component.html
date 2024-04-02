@@ -1,0 +1,88 @@
+<div class="card mt-2">
+    <div class="card-body bg-primary">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-white"> <i
+                    class="bi bi-arrow-left-circle-fill mt-1 me-1"
+                    mat-ripple
+                    routerLink="/masterdata/countries" [queryParams]="queryParams"
+                  ></i>   {{countryId?'Update' : 'Add'}} Country</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="mt-2">
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="Enter Name" type="text" />
+                            <mat-error>
+                                <vmessage field="name" [control]="form.controls['name']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>ISO3</mat-label>
+                            <input matInput formControlName="iso3" placeholder="Enter ISO3" type="text" />
+                            <mat-error>
+                                <vmessage field="iso3" [control]="form.controls['iso3']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Phone Code</mat-label>
+                            <input matInput formControlName="phone_code" placeholder="Enter Phone Code" type="text" />
+                            <mat-error>
+                                <vmessage field="phone_code" [control]="form.controls['phone_code']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Capital</mat-label>
+                            <input matInput formControlName="capital" placeholder="Enter Capital" type="text" />
+                            <mat-error>
+                                <vmessage field="capital" [control]="form.controls['capital']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Currency</mat-label>
+                            <input matInput formControlName="currency" placeholder="Enter Currency" type="text" />
+                            <mat-error>
+                                <vmessage field="currency" [control]="form.controls['currency']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-2 offset-md-10 text-end">
+                    <button type="submit" mat-ripple class="btn btn-primary w-100">{{countryId?'Update':'Save'}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-loading></app-loading>

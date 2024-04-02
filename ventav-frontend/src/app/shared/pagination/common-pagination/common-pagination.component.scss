@@ -1,0 +1,22 @@
+.btn-c-icon {
+	cursor: pointer;
+}
+
+@media screen and (min-width: 860px) {
+	:host {
+		text-align: end;
+		width: 83%;
+		position: relative;
+		bottom: 10px;
+		z-index: 2;
+	}
+}
+@media (min-width: 320px ) and (max-width: 768px) {
+	:host {
+		text-align: end;
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		z-index: 2;
+	}
+}

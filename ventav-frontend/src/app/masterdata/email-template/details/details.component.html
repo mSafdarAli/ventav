@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="card-body">
+        <table *ngIf="filteredData.length > 0" mat-table [dataSource]="filteredData"
+            class="mat-elevation-z8 shadow-none">
+            <ng-container matColumnDef="templateName">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="subject">
+                <th mat-header-cell *matHeaderCellDef> Subject </th>
+                <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+            </ng-container>
+            <ng-container matColumnDef="createdByName"
+                *ngIf="['Admin','Super Admin'].indexOf(_authService.userDetails.role.name)>-1">
+                <th mat-header-cell *matHeaderCellDef> Created By </th>
+                <td mat-cell *matCellDef="let element"> {{element.createdByName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="active">
+                <th mat-header-cell *matHeaderCellDef> Active </th>
+                <td mat-cell *matCellDef="let element"><input (change)="updateStatus(element._id)"
+                        [disabled]="userId!=element.createdBy" type="checkbox" class="form-check-input ms-2"
+                        id="customCheck2" [checked]="element.active">
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element" >
+                    <div class="d-flex ms-2 ms-md-0">
+                        <button class="btn btn-xs btn-warning" mat-ripple type="button" [disabled]="userId!=element.createdBy && ['Super Admin'].indexOf(_authService.userDetails.role.name)==-1"
+                             routerLink="edit/{{element._id}}"
+                            [queryParams]="queryParams">
+                            <i class="bi bi-pencil text-light"></i>
+                        </button>
+                        <button class="btn btn-xs btn-danger mx-1" mat-ripple type="button" [disabled]="userId!=element.createdBy && ['Super Admin'].indexOf(_authService.userDetails.role.name)==-1"
+                            (click)="deleteTemplate(element._id)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        <button class="btn btn-secondary btn-xs" type="button" [disabled]="userId!=element.createdBy && ['Super Admin'].indexOf(_authService.userDetails.role.name)==-1" mat-ripple
+                            (click)="duplicateTemplate(element._id)"><i
+                                class="bi bi-file-earmark-break"></i>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <p *ngIf="filteredData.length == 0 && templateId" class="text-center">No Templates Found please Contact
+            LoopBrackets</p>
+        <p *ngIf="!templateId" class="text-center">Please Select Category from left pannel</p>
+    </div>
+</div>
+<div class="row my-2">
+    <div class="col-12">
+        <pagination-control [pager]="pager" [params]="queryParams"></pagination-control>
+    </div>
+</div>

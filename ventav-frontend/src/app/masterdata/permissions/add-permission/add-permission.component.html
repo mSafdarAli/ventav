@@ -1,0 +1,52 @@
+<div class="card mt-2">
+    <div class="card-body bg-primary">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-white">
+                    <i
+                    class="bi bi-arrow-left-circle-fill mt-1 me-1"
+                    mat-ripple
+                    routerLink="/masterdata/permissions"
+                  ></i>  
+                    Add Permission</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="mt-2">
+            <div class="row ">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Component Name</mat-label>
+                            <input matInput formControlName="component" placeholder="Enter Component Name" type="text" />
+                            <mat-error>
+                                <vmessage field="component" [control]="form.controls['component']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Permission Name</mat-label>
+                            <input matInput formControlName="permission" placeholder="Enter Permission Name" type="text" />
+                            <mat-error>
+                                <vmessage field="permission" [control]="form.controls['permission']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-2 offset-md-10 text-end">
+                    <button type="submit" mat-ripple class="btn btn-primary w-100">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-loading></app-loading>

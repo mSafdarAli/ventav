@@ -1,0 +1,19 @@
+<div class="card mt-2">
+    <div class="card-body padding-top">
+            <div class="row ">
+                <div class="col-md-10 col-12">
+                    <h4>Dashboard</h4>
+                </div>
+                <div class="col-md-2 col-12 text-end">
+                    <button type="submit" mat-ripple
+                        class="btn btn-primary w-100" (click)="advanceSearch()">Search</button>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <pagination-control [pager]="pager" [params]="queryParams"></pagination-control>
+    </div>
+</div>
+<app-loading></app-loading>

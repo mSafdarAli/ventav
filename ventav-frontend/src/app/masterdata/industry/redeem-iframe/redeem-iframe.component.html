@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">IFrames</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="bi bi-x"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<div>
+    <app-iframe path="{{path}}" id="{{id}}"></app-iframe>
+</div>

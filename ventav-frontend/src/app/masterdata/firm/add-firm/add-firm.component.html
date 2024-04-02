@@ -1,0 +1,90 @@
+<div class="card mt-2">
+    <div class="card-body bg-primary">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-white">
+                    <i
+                    class="bi bi-arrow-left-circle-fill mt-1 me-1"
+                    mat-ripple
+                    routerLink="/masterdata/firms" [queryParams]="queryParams"
+                  ></i>  
+                    {{firmId?'Edit':'Add'}} Firm</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Company Name</mat-label>
+                            <input matInput formControlName="companyName" placeholder="Enter Company Name"
+                                type="text" />
+                            <mat-error>
+                                <vmessage field="companyName" [control]="form.controls['companyName']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Contact Name</mat-label>
+                            <input matInput formControlName="contactName" placeholder="Enter Contact Name"
+                                type="text" />
+                            <mat-error>
+                                <vmessage field="contactName" [control]="form.controls['contactName']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Contact Phone</mat-label>
+                            <input matInput formControlName="contactPhone" placeholder="Contact Phone" type="tel" />
+                            <mat-error>
+                                <vmessage field="contactPhone" [control]="form.controls['contactPhone']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Contact Email</mat-label>
+                            <input matInput formControlName="contactEmail" placeholder="Contact Email" type="email" />
+                            <mat-error>
+                                <vmessage field="contactEmail" [control]="form.controls['contactEmail']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <lb-auto-complete appearance="outline" placeholder="Select Rating" label="Select Rating"  [multiple]="false" [clear]="false"
+                        [fControl]="form.controls['rating']" [options]="selectRating">
+                    </lb-auto-complete>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" formControlName="active" />
+                        <label class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-2 offset-md-10">
+                    <button class="btn btn-primary float-end w-100" type="submit" mat-ripple>{{firmId?'Update':'Save'}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-loading></app-loading>

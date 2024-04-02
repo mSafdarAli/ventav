@@ -1,0 +1,294 @@
+<div class="card mt-2">
+    <div class="card-body bg-primary">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-white"> 
+                    <i
+                    class="bi bi-arrow-left-circle-fill mt-1 me-1"
+                    mat-ripple
+                    routerLink="/merchant" [queryParams]="queryParams"
+                  ></i>    {{merchantId?'Edit':'Add'}} Merchant</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-body px-2">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <fieldset class="border px-3">
+                <legend class="float-none w-auto">Personal Information
+                </legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Name</mat-label>
+                                <input matInput formControlName="name" placeholder="Enter Name" type="text" />
+                                <mat-error>
+                                    <vmessage field="name" [control]="form.controls['name']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="email" placeholder="Enter Email" type="email" />
+                                <mat-error>
+                                    <vmessage field="email" [control]="form.controls['email']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" placeholder="Select State"  label="Select State"  [multiple]="false"
+                            [clear]="false" [fControl]="form.controls['stateId']" [options]="selectState">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Merchant Text</mat-label>
+                                <input matInput formControlName="merchantText" placeholder="Enter Merchant Text"
+                                    type="text" />
+                                <mat-error>
+                                    <vmessage field="merchantText" [control]="form.controls['merchantText']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Phone</mat-label>
+                                <input matInput formControlName="phone" placeholder="Enter Phone" type="tel" />
+                                <mat-error>
+                                    <vmessage field="phone" [control]="form.controls['phone']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Street</mat-label>
+                                <input matInput formControlName="street" placeholder="Enter Street" type="text" />
+                                <mat-error>
+                                    <vmessage field="street" [control]="form.controls['street']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>City</mat-label>
+                                <input matInput formControlName="city" placeholder="Enter City" type="text" />
+                                <mat-error>
+                                    <vmessage field="city" [control]="form.controls['city']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Zip Code</mat-label>
+                                <input matInput formControlName="zipCode" placeholder="Enter Zip Code" type="number" />
+                                <mat-error>
+                                    <vmessage field="zipCode" [control]="form.controls['zipCode']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border px-3 mt-md-4">
+                <legend class="float-none w-auto">Merchant Working Locations
+                </legend>
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Position" placeholder="Select Position" [multiple]="false"
+                            [clear]="false" [fControl]="form.controls['position']" [options]="selectPosition">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Promoter" placeholder="Select Promoter" [multiple]="false" [disabledSelect]="roleName=='Promoter'"
+                            [clear]="false" [fControl]="form.controls['promoterId']" [options]="selectPromotor">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select States" placeholder="Select States" [multiple]="true"
+                            [clear]="true" [fControl]="form.controls['stateIds']" [options]="selectStates"
+                            (selectionChange)="getRegionByStateId($event)">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Region" placeholder="Select Region" [multiple]="true"
+                            [clear]="true" [fControl]="form.controls['regionIds']" [options]="selectRegion">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Industry" placeholder="Select Industry" [multiple]="false"
+                            [clear]="false" [fControl]="form.controls['industryId']" [options]="selectIndustry">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Status" placeholder="Select Status" [multiple]="false"
+                            [clear]="false" [fControl]="form.controls['status']" [options]="selectStatus">
+                        </lb-auto-complete>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border px-3 mt-md-4">
+                <legend class="float-none w-auto">Contact Information
+                </legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Contact Name</mat-label>
+                                <input matInput formControlName="contactName" placeholder="Enter Contact Name"
+                                    type="text" />
+                                <mat-error>
+                                    <vmessage field="contactName" [control]="form.controls['contactName']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Contact Email</mat-label>
+                                <input matInput formControlName="contactEmail" placeholder="Contact Email"
+                                    type="email" />
+                                <mat-error>
+                                    <vmessage field="contactEmail" [control]="form.controls['contactEmail']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6" *ngIf="!merchantId">
+                        <div class="form-group input-group input-group-merge">
+                            <mat-form-field class="w-100">
+                                <mat-label>Contact Password</mat-label>
+                                <input matInput formControlName="contactPassword" placeholder="Enter Contact password"
+                                    [type]="showPassword ? 'text' : 'password'" />
+                                <mat-icon matSuffix (click)="showPassword = !showPassword">{{
+                                    showPassword ? "visibility" : "visibility_off"
+                                    }}</mat-icon>
+                                <mat-error>
+                                    <vmessage field="contactPassword" [control]="form.controls['contactPassword']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border px-3 mt-md-4">
+                <legend class="float-none w-auto">General Information
+                </legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Website</mat-label>
+                                <input matInput formControlName="website" placeholder="Enter Website" type="text" />
+                                <mat-error>
+                                    <vmessage field="website" [control]="form.controls['website']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Revenue</mat-label>
+                                <input matInput formControlName="revenue" placeholder="Enter Revenue" type="number" />
+                                <mat-error>
+                                    <vmessage field="revenue" [control]="form.controls['revenue']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Email Remaining Times</mat-label>
+                                <input matInput formControlName="emailRemainingTimes"
+                                    placeholder="Enter Email Remaining Times" type="number" />
+                                <mat-error>
+                                    <vmessage field="emailRemainingTimes"
+                                        [control]="form.controls['emailRemainingTimes']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Communication Email</mat-label>
+                                <input matInput formControlName="communicationEmail" placeholder="Communication Email"
+                                    type="email" />
+                                <mat-error>
+                                    <vmessage field="communicationEmail"
+                                        [control]="form.controls['communicationEmail']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Notes</mat-label>
+                                <textarea matInput formControlName="notes" placeholder="Enter Notes" type="text"
+                                    rows="5"></textarea>
+                                <mat-error>
+                                    <vmessage field="notes" [control]="form.controls['notes']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" formControlName="active" />
+                            <label class="form-check-label">Active</label>
+                        </div>
+                    </div>
+                </div>
+                </fieldset>
+                <div class="row mt-3">
+                    <div class="col-md-2 offset-md-10">
+                        <button class="btn btn-primary float-end w-100" type="submit"
+                            mat-ripple>{{merchantId?'Update':'Save'}}</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+<app-loading></app-loading>

@@ -1,0 +1,41 @@
+.ticket_image {
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+    min-height: 250px;
+}
+
+.details {
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+    border-right: 2px black;
+    border-bottom: 0;
+    border-top: 0;
+    border-left: 0;
+    border-style: dashed !important;
+}
+
+.custom-height{
+    min-height: 20px;
+}
+
+.img-holder {
+    width: 100%;
+    height: 100%;
+
+    img {
+        object-fit: cover;
+        max-width: 200px;
+        max-height: 200px;
+    }
+}
+
+.ticket-holder {
+    width: 100%;
+    height: 100%;
+
+    img {
+        object-fit: cover;
+        max-width: 300px;
+        max-height: 300px;
+    }
+}

@@ -1,0 +1,19 @@
+.list{
+    cursor: pointer;
+    text-decoration: none;
+    a:hover{
+        color: red !important;
+    }
+    a:active{
+        color: red !important;
+    }
+    
+}
+.height{
+    min-height: 79vh;
+    max-height: 79vh;
+    overflow-y: auto;
+}
+.badge{
+    --bs-badge-padding-y:0.65em;
+}

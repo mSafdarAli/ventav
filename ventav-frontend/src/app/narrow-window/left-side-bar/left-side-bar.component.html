@@ -1,0 +1,81 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="left-side-menu bg-sidemenu" [class.sidebar-enable]="sideBarStatus | async">
+	<div class="h-100" data-simplebar>
+		<div class="text-center">
+			<img src="/assets/images/ventav.jpg" alt="ventav logo" class="d-none d-lg-inline-block">
+		</div>
+		<button class="btn btn-light btn-xs mt-2 closeMenu d-lg-none" mat-ripple (click)="closeMenu();">
+			<i class="bi bi-x-lg"></i>
+		</button>
+		<div class="w-100 text-center p-2 mt-2  d-lg-block ">
+            <img src="/assets/images/user.jpg" alt="user-img" title="Mat Helme" class="rounded-circle avatar-md w-25">
+        </div>
+        <div class="user-box text-center mt-2 mt-lg-0" (click)="topmenu = !topmenu">
+            <div class="dropdown">
+                <a href="javascript: void(0);" class="text-light  title  mt-2  mb-1 d-block"
+                    data-bs-toggle="dropdown">{{userInfo.name | titlecase}} <span class="bi bi-caret-down-fill"></span></a>
+
+                <div class="dropdown-menu user-pro-dropdown" [class.show]="topmenu">
+                    <a  class="dropdown-item notify-item" routerLink="profile">
+                        <i class="fe-lock me-1"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a (click)="logout()" class="dropdown-item notify-item">
+                        <i class="fe-log-out me-1"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+		<div id="sidebar-menu">
+			<ul (click)="closeMenu()">
+				<ng-container *ngFor="let item of naviIteam">
+					<li routerLinkActive="menuitem-active" *ngIf="ps.havePerm(item.component,item.permission)">
+						<a routerLink="{{item.url}}" *ngIf="!item.childs">
+							<i *ngIf="item.icon" class="bi {{item.icon}}"></i>
+							<span>{{item.label}}</span>
+						</a>
+
+						<a (click)="item.open = !item.open;" [ngClass]="{ 'oppened': item.open }" *ngIf="item.childs && item.childs.length > 0">
+							<i *ngIf="item.icon" class="bi {{item.icon}}"></i>
+							<span>{{item.label}}</span>
+							<i class="bi bi-caret-down-fill float-end mt-1" *ngIf="!item.open"></i>
+							<i class="bi bi-caret-up-fill float-end mt-1" *ngIf="item.open"></i>
+						</a>
+						<div class="collapse nav-second-level-hover" [ngClass]="{ 'show': item.open }" *ngIf="item.childs && item.childs.length">
+							<ul class="nav-second-level">
+							<ng-container *ngFor="let subitem of item.childs">
+								<li routerLinkActive="menuitem-active" *ngIf="ps.havePerm(subitem.component,subitem.permission)"
+									>
+									<a routerLink="{{item.url}}/{{subitem.url}}">
+										<i *ngIf="subitem.icon" class="bi {{subitem.icon}}"></i>
+										<span> {{subitem.label}}</span>
+									</a>
+									
+								</li>
+								</ng-container>
+							</ul>
+						</div>
+					</li>
+				</ng-container>
+				<!-- <li>
+					<a routerLink="/masterdata"><i class="bi bi-bar-chart"></i>Masterdata</a>
+				</li>
+				<li>
+					<a routerLink="/masterdata/industry"><i class="bi bi-bar-chart"></i>Industry</a>
+				</li>
+				<li>
+					<a routerLink="/masterdata/regions"><i class="bi bi-bar-chart"></i>Regions</a>
+				</li>
+				<li>
+					<a routerLink="/masterdata/firm"><i class="bi bi-bar-chart"></i>Firms</a>
+				</li>
+				<li>
+					<a routerLink="access-right"><i class="bi bi-bar-chart"></i>Access Right</a>
+				</li> -->
+			</ul>
+
+		</div>
+		<div class="clearfix"></div>
+	</div>

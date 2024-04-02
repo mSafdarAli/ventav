@@ -1,0 +1,275 @@
+<div class="card mt-2">
+    <div class="card-body bg-primary">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-white">
+                    <i
+                    class="bi bi-arrow-left-circle-fill mt-1 me-2"
+                    mat-ripple
+                    routerLink="/masterdata/industries" [queryParams]="queryParams">
+                </i>Add Industry</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <mat-form-field class="w-100">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput formControlName="name" placeholder="Enter Industry Name"
+                                        type="text" />
+                                    <mat-error>
+                                        <vmessage field="name" [control]="form.controls['name']">
+                                        </vmessage>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <mat-form-field class="w-100">
+                                    <mat-label>Text on Tickets</mat-label>
+                                    <textarea matInput formControlName="ticketText" placeholder="Enter Text on Tickets"
+                                        type="text" rows="5"></textarea>
+                                    <mat-error>
+                                        <vmessage field="ticketText" [control]="form.controls['ticketText']">
+                                        </vmessage>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <app-text-editor placeholderText="Text Over the Image"
+                                [fControl]="form.controls['imageText']"></app-text-editor>
+                            <vmessage field="imageText" [control]="form.controls['imageText']"></vmessage>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" formControlName="active" />
+                                    <label class="form-check-label">Active</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-end">
+                                    <button class="btn btn-danger mx-1" mat-ripple (click)="uploadImage.click()"
+                                        type="button">Upload
+                                        Ticket
+                                        Image</button>
+                                    <input #uploadImage type="file" hidden (change)="uploadTicketImage($event)" />
+                                    <button class="btn btn-secondary " type="button" mat-ripple
+                                        (click)="otherImages.click()">Upload
+                                        Deal Images</button>
+                                    <input #otherImages type="file" hidden (change)="uploadDealImage($event)"
+                                        multiple="" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-12 mb-2 p-0 position-relative">
+                            <i *ngIf="picturesFirst" (click)="removeFile(picturesFirst, true)"
+                                class="bi bi-x-circle-fill position-absolute top-0 end-0 m-1  text-danger fs-2"></i>
+                            <img [src]="picturesFirst" onError="this.src='/assets/images/ticketImage.png'" class="w-100"
+                                alt="" />
+                        </div>
+
+                        <div class="d-md-flex justify-content-between p-0">
+                            <ng-container *ngIf="pictures.length > 0; else default">
+                                <div class="col-lg-3 col-12 col-md-3 pe-md-1 p-0" *ngFor="let item of pictures">
+                                    <div class="custom_image position-relative">
+                                        <i (click)="removeFile(item)"
+                                            class="bi bi-x-circle-fill position-absolute top-0 end-0 text-danger fs-3"></i>
+                                        <img [src]="[item]" onError="this.src='/assets/images/defaultThumbnail.png'"
+                                            alt="" />
+                                    </div>
+
+                                </div>
+                                <ng-container *ngIf="pictures.length < 3">
+                                    <div class="col-lg-3 col-12 col-md-3 pe-1" *ngFor="let item of getExtraElement()">
+                                        <div class="custom_image">
+                                            <img src="/assets/images/defaultThumbnail.png" alt="" />
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                            <ng-template #default>
+                                <div class="col-12 col-md-4 pe-1" *ngFor="let item of [1, 2, 3]">
+                                    <div class="custom_image">
+                                        <img [src]="[item]" onError="this.src='/assets/images/defaultThumbnail.png'"
+                                            alt="" class="img-fluid" />
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    <fieldset class="border px-3 mt-md-4">
+                        <legend class="float-none w-auto">Customization Details
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <mat-form-field class="w-100">
+                                        <mat-label>Redumption Message Success</mat-label>
+                                        <textarea matInput formControlName="redumptionSuccessMessage"
+                                            placeholder="Enter Redumption Message Success" type="text"
+                                            rows="3"></textarea>
+                                        <mat-error>
+                                            <vmessage field="redumptionSuccessMessage"
+                                                [control]="form.controls['redumptionSuccessMessage']">
+                                            </vmessage>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <mat-form-field class="w-100">
+                                        <mat-label>Redumption Message Already</mat-label>
+                                        <textarea matInput formControlName="redumptionAlreadyMessage"
+                                            placeholder="Enter Redumption Message Already" type="text"
+                                            rows="3"></textarea>
+                                        <mat-error>
+                                            <vmessage field="redumptionAlreadyMessage"
+                                                [control]="form.controls['redumptionAlreadyMessage']">
+                                            </vmessage>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <mat-form-field class="w-100">
+                                        <mat-label>Select Button Color</mat-label>
+                                        <input matInput formControlName="buttonColorCode" placeholder="Seclect Button Color" type="color" />
+                                        <mat-error>
+                                            <vmessage field="buttonColorCode" [control]="form.controls['buttonColorCode']">
+                                            </vmessage>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <mat-form-field class="w-100">
+                                        <mat-label>Select Text Color</mat-label>
+                                        <input matInput formControlName="textColorCode" placeholder="Seclect Text Color" type="color" />
+                                        <mat-error>
+                                            <vmessage field="textColorCode" [control]="form.controls['textColorCode']">
+                                            </vmessage>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-12">
+                    <fieldset class="border px-3 mt-md-4">
+                        <legend class="float-none w-auto">Questions For Industry
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Question</mat-label>
+                                                <input matInput formControlName="question" placeholder="Enter Question"
+                                                    type="text" />
+                                                <mat-error>
+                                                    <vmessage field="question" [control]="form.controls['question']">
+                                                    </vmessage>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Options (Enter Comma Separated Options)</mat-label>
+                                                <input matInput formControlName="options"
+                                                    placeholder="Enter Options (Enter Comma Separated Options)" [required]="form.value.question"
+                                                    type="text" />
+                                                <mat-error>
+                                                    <vmessage field="options" [control]="form.controls['options']">
+                                                    </vmessage>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="form.value.question && form.value.options">
+                                        <button class="btn btn-primary mb-2 float-end" type="button"
+                                            (click)="addNewQuestion(form.value.question,form.value.options)">{{index==-1
+                                            ?'Add':'Update'}} Question</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-12" *ngIf="questions.length>0">
+                                    <div class="card my-2">
+                                        <div class="card-body">
+                                            <table class="table  table-responsive table-border w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Question</th>
+                                                        <th>Options</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of questions;let i=index;">
+                                                        <td>{{item.question}}</td>
+                                                        <td>{{item.options}}</td>
+                                                        <td><button class="btn btn-xs btn-warning ms-2 bg-warning"
+                                                                (click)="editQuestion(item.question,item.options,i)"
+                                                                mat-ripple type="button">
+                                                                <i class="bi bi-pencil text-white"></i>
+                                                            </button>
+                                                            <button class="btn btn-xs btn-danger ms-2 bg-danger"
+                                                                (click)="deleteQuestion(i)" mat-ripple type="button">
+                                                                <i class="bi bi-trash text-white"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-2 offset-md-10">
+                    <button class="btn btn-primary float-end w-100" type="submit"
+                        mat-ripple>{{industryId?'Update':'Save'}}</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<app-loading></app-loading>

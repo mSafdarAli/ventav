@@ -1,0 +1,31 @@
+<div *ngIf="meta" class="row">
+	<div class="col-12">
+		<div class="card-box m-0 p-2">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<a class="btn-c-icon text-dark float-right mx-1"
+						[class.disabled]="meta.last_page == meta.current_page" (click)="changePage(meta.last_page)">
+						<i class="mdi mdi-chevron-double-right"></i>
+					</a>
+					<a class="btn-c-icon text-dark float-right mx-1"
+						[class.disabled]="meta.last_page == meta.current_page"
+						(click)="changePage(meta.current_page+1)">
+						<i class="mdi mdi-chevron-right"></i>
+					</a>
+					<span class="btn-c-icon text-dark float-right mx-1">Page {{meta.current_page}} of
+						{{meta.last_page}}</span>
+					<a class="btn-c-icon text-dark float-right mr-2 ml-4" [class.disabled]="meta.current_page ==1"
+						(click)="changePage(1)">
+						<i class="mdi mdi-chevron-double-left"></i>
+					</a>
+					<a class="btn-c-icon text-dark float-right mx-1" [class.disabled]="meta.current_page ==1"
+						(click)="changePage(meta.current_page-1)">
+						<i class="mdi mdi-chevron-left"></i>
+					</a>
+					<span class="btn-c-icon text-dark float-right mx-1">{{meta.from}} to {{meta.to}} of
+						{{meta.total}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

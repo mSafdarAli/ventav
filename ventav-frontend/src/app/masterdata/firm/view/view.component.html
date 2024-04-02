@@ -1,0 +1,85 @@
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="row">
+      <div class="col-md-8">
+        <h4>
+          <i
+            class="bi bi-arrow-left-circle-fill mt-1 me-1"
+            mat-ripple
+            routerLink="/masterdata/firms" [queryParams]="queryParams"
+          ></i>
+          Firm Detail
+        </h4>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <button
+          type="button"
+          mat-ripple
+          class="btn btn-primary w-100 float-end"
+          routerLink="/masterdata/firms/edit/{{ firmId }}"
+        >
+          Edit Firm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5><i class="bi bi-ticket-detailed-fill me-1"> </i> Firm Information</h5>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Company Name</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.companyName ? data?.companyName : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Contact Email</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.contactEmail ? data?.contactEmail : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Contact Name</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.contactName ? data?.contactName : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Contact Phone</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.contactPhone ? data?.contactPhone : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Rating</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.rating ? data?.rating : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

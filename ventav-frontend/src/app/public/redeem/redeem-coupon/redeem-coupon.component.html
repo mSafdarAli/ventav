@@ -1,0 +1,139 @@
+<!-- <div class="topbar bg-white text-center">
+  <img src="/assets/images/logo.png" class="logo" alt="Logo OrderMation" />
+</div> -->
+<div class="container">
+    <div class="">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card bg-pattern">
+                    <div class="card-body ">
+                        <ng-container *ngIf="!showMessage">
+                            <h4 class="text-center fw-bold  mb-4">You Know what to Do</h4>
+                            <form [formGroup]="form" (ngSubmit)="submit()">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Redemption Code</mat-label>
+                                                <input matInput formControlName="redemptionCode"
+                                                    placeholder="Enter Redemption Code" type="text" (change)="getStatesAndRegions(form.value.redemptionCode)" />
+                                                <mat-error>
+                                                    <vmessage field="redemptionCode"
+                                                        [control]="form.controls['redemptionCode']">
+                                                    </vmessage>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <ng-container *ngIf="form.value.redemptionCode">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <lb-auto-complete appearance="outline" label="Select State"
+                                                    placeholder="Select State" [multiple]="false" [clear]="false"
+                                                    [fControl]="form.controls['stateId']" [options]="selectState" (selectionChange)="getRegionsByStateId($event)">
+                                                </lb-auto-complete>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <lb-auto-complete appearance="outline" label="Select Region"
+                                                    placeholder="Select Region" [multiple]="false" [clear]="false"
+                                                    [fControl]="form.controls['regionId']" [options]="selectRegion">
+                                                </lb-auto-complete>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Name</mat-label>
+                                                <input matInput formControlName="name" placeholder="Enter Name"
+                                                    type="text" />
+                                                <mat-error>
+                                                    <vmessage field="name" [control]="form.controls['name']">
+                                                    </vmessage>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Email</mat-label>
+                                                <input matInput formControlName="email" placeholder="Enter Email"
+                                                    type="email" />
+                                                <mat-error>
+                                                    <vmessage field="email" [control]="form.controls['email']">
+                                                    </vmessage>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <app-date-picker placeholderText="Select Date of Birth"
+                                                label="Select Date of Birth" [fControl]="form.controls['dob']">
+                                            </app-date-picker>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Zip Code</mat-label>
+                                                <input matInput formControlName="zipCode" placeholder="Enter Zip Code"
+                                                    type="text" />
+                                                <mat-error>
+                                                    <vmessage field="zipCode" [control]="form.controls['zipCode']">
+                                                    </vmessage>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <ng-container *ngIf="questions.length>0">
+                                        <div class="col-md-12">
+                                            <h5>Questions</h5>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <ng-container *ngFor="let item of questions ;let i=index">
+                                                <p class="ms-2 mb-1 mt-2"><span class="fw-bold">Question{{i+1}}:</span>
+                                                    {{item.question}}</p>
+                                                <mat-radio-group aria-label="Select an option" formControlName="answer"
+                                                    (change)="selectionChange(item.question,$event)">
+                                                    <mat-radio-button *ngFor="let option of splitToArray(item.options)"
+                                                        value="{{option}}" class="ms-2">{{option}}</mat-radio-button>
+                                                </mat-radio-group>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <button class="btn w-100" [style]="customStyle(data.buttonColorCode,data.textColorCode)" type="submit">
+                                            Redeem
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </ng-container>
+                        <div *ngIf="showMessage">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h4 *ngIf="success" class="text-success"><i
+                                            class="bi bi-check-lg me-2"></i>{{redumptionSuccessMessage}}</h4>
+                                    <h4 *ngIf="!success" class="text-danger"><i
+                                            class="bi bi-exclamation-triangle me-2"></i>{{redumptionAlready}}</h4>
+                                    <button class="btn w-100" [style]="customStyle(data.buttonColorCode,data.textColorCode)" type="button"
+                                        (click)="hideMessage()">
+                                        Redeem More Coupons
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

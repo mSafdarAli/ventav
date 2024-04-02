@@ -1,0 +1,51 @@
+<div class="card mt-2">
+    <div class="card-body bg-primary">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-white">  <i
+                    class="bi bi-arrow-left-circle-fill mt-1 me-1"
+                    mat-ripple
+                    routerLink="/masterdata/regions" [queryParams]="queryParams"
+                  ></i>  {{regionId?'Update':'Add' }} Region</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="mt-2">
+            <div class="row ">
+                <div class="col-md-8">
+                    <lb-auto-complete appearance="outline" label="Select State" placeholder="Select State" [multiple]="false" [clear]="false"
+                        [fControl]="form.controls['stateId']" [options]="selectState"
+                        (selectionChange)="getRegisteredRegions(form.value.stateId)">
+                    </lb-auto-complete>
+
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="Enter Name" type="text" />
+                            <mat-error>
+                                <vmessage field="name" [control]="form.controls['name']">
+                                </vmessage>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                    <ng-container *ngFor="let item of registedStates">
+                        <span class="badge bg-primary px-4 py-2 me-1 mb-1 font-16 fw-normal">{{item.name}}</span>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-2 offset-md-10 text-end">
+                    <button type="submit" mat-ripple class="btn btn-primary w-100">{{regionId?'Update':'Save'}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-loading></app-loading>

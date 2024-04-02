@@ -1,0 +1,78 @@
+<div class="card mt-2">
+  <div class="card-body pt-2">
+    <div class="row align-items-center">
+      <div class="col-md-8 d-flex mb-1">
+        <img
+          src="/assets/images/user.png"
+          onError="this.src='/assets/images/user.png'"
+          class="rounded-circle avatar-sm"
+        />
+        <div class="px-3 mt-2">
+          <h4 class="mb-0">
+            {{ data?.name ? data?.name : "-" }}
+          </h4>
+          <p>_</p>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <button
+          type="button"
+          mat-ripple
+          class="btn btn-primary w-100 float-end"
+          (click)="EditUser()"
+        >
+          Edit User
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h4><i class="bi bi-ticket-detailed-fill me-1"></i> User Information</h4>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Name</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">{{ data?.name ? data?.name : "-" }}</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Email</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.email ? data?.email : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Created At</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.createdAt ? data?.createdAt : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Modified At</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.modifiedAt ? data?.modifiedAt : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

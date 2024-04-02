@@ -1,0 +1,14 @@
+.margin {
+    padding: 1rem;
+    padding-top: 3rem;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .margin {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+    }
+}

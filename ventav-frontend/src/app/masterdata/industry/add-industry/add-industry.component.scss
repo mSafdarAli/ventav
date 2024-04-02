@@ -1,0 +1,21 @@
+.custom_image {
+    width: 100%;
+    height: auto !important;
+    margin-bottom: 10px !important;
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+::ng-deep { /* to penetrate <ngx-editor> CSS styling */
+
+    .NgxEditor {
+      height: 260px;
+      overflow-y: scroll;
+    }
+  
+    .NgxEditor__Content {
+      min-height: 260px; /* make all of the editor area clickable */
+    }
+  }

@@ -1,0 +1,402 @@
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="row">
+      <div class="col-md-8">
+        <h4>
+        
+            <i class="bi bi-arrow-left-circle-fill mt-1 me-1"  mat-ripple routerLink="/deals" [queryParams]="queryParams"></i>
+        
+          Deal Detail
+        </h4>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <button
+          type="button"
+          mat-ripple
+          class="btn btn-primary w-100 float-end"
+          routerLink="/deals/edit/{{ dealId }}"
+        >
+          Edit Deal
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5><i class="bi bi-card-list fill me-2"> </i> Deal Information</h5>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Deal Name</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.dealName ? data?.dealName : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Public Deal Name</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.publicDealName ? data?.publicDealName : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Deal Website Link</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.dealSiteLink ? data?.dealSiteLink : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Deal Number</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.dealNumber ? data?.dealNumber : "-" }}
+              </p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Daily Firm Portion</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.dailyFirmPortion ? data?.dailyFirmPortion : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Charity</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.charity ? data?.charity : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Charity representative</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.representative ? data?.representative : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Promoter</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <span
+                *ngFor="let item of data.promoters"
+                class="badge bg-primary text-light me-2"
+              >
+                {{ item }}</span
+              >
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Offer End Date</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.offerEndDate ? data?.offerEndDate : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Offer Start Date</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.offerStartDate ? data?.offerStartDate : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Coupon Expiry Date</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.couponExpiryDate ? data?.couponExpiryDate : "-" }}
+              </p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Customer Price</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.customerPrice ? data?.customerPrice : "-" }}
+              </p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Discount Percent</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.discount ? data?.discount : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Transaction Mail CC</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.emailCC ? data?.emailCC : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5><i class="bi bi-ticket-detailed me-2"> </i>Promoter Details</h5>
+      <hr class="my-1" />
+      <table class="table table-responsive table-border w-100">
+        <thead>
+          <tr>
+            <th>Promoter Name</th>
+            <th>Portion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data.promoterPortionDetails; let i = index">
+            <td>{{ data.promoters[i] }}</td>
+            <td>{{ item.promoterPortion }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5><i class="bi bi-geo-alt me-2"> </i>Deal Locations</h5>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Industry</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <span
+                *ngFor="let item of data.industries"
+                class="badge bg-primary text-light me-2"
+              >
+                {{ item }}</span
+              >
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>States</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <span
+                *ngFor="let item of data.states"
+                class="badge bg-primary text-light me-2"
+              >
+                {{ item }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Region</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <span
+                *ngFor="let item of data.regions"
+                class="badge bg-primary text-light me-2"
+              >
+                {{ item }}</span
+              >
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Merchant</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <span
+                *ngFor="let item of data.merchants"
+                class="badge bg-primary text-light me-2"
+              >
+                {{ item }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5><i class="bi bi-building me-2"> </i> Industry Details</h5>
+      <hr class="my-1" />
+      <div class="table-responsive">
+        <table class="table table-border w-100">
+          <thead>
+            <tr>
+              <th>Industry Name</th>
+              <th>Description</th>
+              <th>Industry Portion</th>
+              <th>Quantity</th>
+              <th>Unit</th>
+              <th>ExpiryDate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data.industryDetails; let i = index">
+              <td>{{ data.industries[i] }}</td>
+              <td>{{ item.description }}</td>
+              <td>{{ item.industryPortion }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.unit }}</td>
+              <td>{{ item.expiryDate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   
+    </div>
+  </div>
+</div>
+
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5><i class="bi bi-braces me-2"> </i>Discount Codes</h5>
+      <hr class="my-1" />
+      <table class="table table-responsive table-border w-100">
+        <thead>
+          <tr>
+            <th>Discount</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data.discountCodes; let i = index">
+            <td>{{ item.newDiscount }}</td>
+            <td>{{ item.newDiscountPercentage }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5>
+        <i class="bi bi-info-square me-2"></i> General Information
+      </h5>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Hide Expiry Date</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.offerEndDate ? "Yes" : "No" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>In House Deal</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.inHouseDeal ? "Yes" : "No" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Deal Specific Email</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.dealSpecificEmail ? "Yes" : "No" }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Ticket's Merchant Display</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.sortBy ? data?.sortBy : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Deal Start Notification</p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.startNotification ? "Yes" : "No" }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5>
+        <i class="bi bi-cart2 me-2"> </i>Checkout Customization
+      </h5>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Checkout Page Text</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.checkoutText ? data?.checkoutText : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Color</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="border h-75" [ngStyle]="{'background-color': data?.colorCode}">
+                </p>
+            </div>
+      
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+              <div  *ngIf="data?.checkoutLogo">
+                <img src="{{data?.checkoutLogo}}" alt="logo" class="logo-image float-end">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

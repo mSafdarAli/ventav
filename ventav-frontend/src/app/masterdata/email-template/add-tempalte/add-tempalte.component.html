@@ -1,0 +1,94 @@
+<div class="card mt-2">
+    <div class="card-body bg-primary">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-white">
+                    <i class="bi bi-arrow-left-circle-fill mt-1 me-2" mat-ripple
+                        routerLink="/masterdata/email-templates/{{categoryId}}" [queryParams]="queryParams">
+                    </i>
+                    {{templateId?'Update' : 'Add'}} Template
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row g-2">
+    <div class="col-md-8">
+        <div class="card mt-2">
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="submit()" class="mt-2">
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <mat-form-field class="w-100">
+                                    <mat-label>Template Name</mat-label>
+                                    <input matInput formControlName="name" placeholder="Enter Template Name"
+                                        type="text" />
+                                    <mat-error>
+                                        <vmessage field="name" [control]="form.controls['name']">
+                                        </vmessage>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <mat-form-field class="w-100">
+                                    <mat-label>Subject</mat-label>
+                                    <input matInput formControlName="subject" placeholder="Enter Subject" type="text" />
+                                    <mat-error>
+                                        <vmessage field="subject" [control]="form.controls['subject']">
+                                        </vmessage>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <mat-form-field class="w-100">
+                                    <mat-label>Email From</mat-label>
+                                    <input matInput formControlName="mailFrom" placeholder="Enter Email From"
+                                        type="email" />
+                                    <mat-error>
+                                        <vmessage field="mailFrom" [control]="form.controls['mailFrom']">
+                                        </vmessage>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <app-text-editor [fControl]="form.controls['message']"
+                                placeholderText="Enter Message"></app-text-editor>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" formControlName="active" />
+                                <label class="form-check-label">Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-2 offset-md-10 text-end">
+                            <button type="submit" mat-ripple
+                                class="btn btn-primary w-100">{{templateId?'Update':'Save'}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card mt-2">
+            <div class="card-body">
+                <h3>Fields</h3>
+                <p>Click on code to copy it for using in template</p>
+                <h4 *ngFor="let field of fields;" (click)="copyClipboard(field.code)">{{field.message}} : <span
+                        class="badge bg-primary">{{field.code}}</span></h4>
+            </div>
+        </div>
+
+    </div>
+</div>
+<app-loading></app-loading>

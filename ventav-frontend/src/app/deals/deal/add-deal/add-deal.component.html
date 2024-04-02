@@ -1,0 +1,546 @@
+<div class="card mt-2">
+    <div class="card-body bg-primary">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-white">
+                    <i
+                    class="bi bi-arrow-left-circle-fill mt-1 me-1"
+                    mat-ripple
+                    routerLink="/deals" [queryParams]="queryParams"
+                  ></i>  
+                    {{dealId?'Edit':'Add'}} Deal</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card my-2">
+    <div class="card-body px-2">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <fieldset class="border px-3">
+                <legend class="float-none w-auto">Deal Information
+                </legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Deal Name</mat-label>
+                                <input matInput formControlName="dealName" placeholder="Enter Name" type="text" />
+                                <mat-error>
+                                    <vmessage field="dealName" [control]="form.controls['dealName']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Promoter" placeholder="Select Promoter"
+                            [disabledSelect]="roleName=='Promoter'"
+                            [multiple]="['Admin','Super Admin'].indexOf(roleName)>-1 ? true:false" [clear]="true"
+                            [fControl]="form.controls['promoterIds']" (selectionChange)="addPromoterDetails($event)"
+                            [options]="selectPromotor">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <div *ngIf="form.value.promoterPortionDetails.length>0">
+                            <div formArrayName="promoterPortionDetails">
+                                <ng-container *ngFor="let details of promoterPortionDetails.controls;  let i=index"
+                                    [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <mat-form-field class="w-100">
+                                                    <mat-label>{{findName(selectPromotor,form.value.promoterIds[i])}} - Portion %</mat-label>
+                                                    <input matInput
+                                                        [formControl]="promoterPortionDetails.controls[i].controls['promoterPortion']"
+                                                        placeholder="Enter Promoter Portion %" type="number">
+                                                    <mat-error>
+                                                        <vmessage field="promoterPortion"
+                                                            [control]="promoterPortionDetails.controls[i].controls['promoterPortion']">
+                                                        </vmessage>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </ng-container>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Public Deal Name</mat-label>
+                                <input matInput formControlName="publicDealName" placeholder="Enter Public Deal Name"
+                                    type="text" />
+                                <mat-error>
+                                    <vmessage field="publicDealName" [control]="form.controls['publicDealName']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Deal Company"
+                            placeholder="Select Deal Company" [multiple]="false" [clear]="false"
+                            [fControl]="form.controls['firmId']" [options]="selectFirms">
+                        </lb-auto-complete>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Deal Number</mat-label>
+                                <input matInput formControlName="dealNumber" placeholder="Enter Deal Number" readonly
+                                    type="text" />
+                                <mat-error>
+                                    <vmessage field="dealNumber" [control]="form.controls['dealNumber']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Deal Site Link</mat-label>
+                                <input matInput formControlName="dealSiteLink" placeholder="Enter Deal Site Link"
+                                    type="text" />
+                                <mat-error>
+                                    <vmessage field="dealSiteLink" [control]="form.controls['dealSiteLink']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <app-date-picker placeholderText="Select Offer Start Date" label="Select Offer Start Date"
+                            [fControl]="form.controls['offerStartDate']">
+                        </app-date-picker>
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <app-date-picker placeholderText="Select Offer End Date" label="Select Offer End Date"
+                            [fControl]="form.controls['offerEndDate']">
+                        </app-date-picker>
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <app-date-picker placeholderText="Select Coupon Expiry Date" label="Select Coupon Expiry Date"
+                            [fControl]="form.controls['couponExpiryDate']">
+                        </app-date-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Customer Price</mat-label>
+                                <input matInput formControlName="customerPrice" placeholder="Enter Customer Price"
+                                    type="number" />
+                                <mat-error>
+                                    <vmessage field="customerPrice" [control]="form.controls['customerPrice']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Daily Deal Firm Portion</mat-label>
+                                <input matInput formControlName="dailyFirmPortion"
+                                    placeholder="Enter Daily Deal Firm Portion" type="number" />
+                                <mat-error>
+                                    <vmessage field="dailyFirmPortion" [control]="form.controls['dailyFirmPortion']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Charity </mat-label>
+                                <input matInput formControlName="charity" placeholder="Enter Charity" type="number" />
+                                <mat-error>
+                                    <vmessage field="charity" [control]="form.controls['charity']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Charity Representative</mat-label>
+                                <input matInput formControlName="representative" placeholder="Enter Representative"
+                                    type="text" />
+                                <mat-error>
+                                    <vmessage field="representative" [control]="form.controls['representative']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Discount Percent</mat-label>
+                                <input matInput formControlName="discount" placeholder="Enter Discount Percent"
+                                    type="number" />
+                                <mat-error>
+                                    <vmessage field="discount" [control]="form.controls['discount']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Transaction Mail CC</mat-label>
+                                <input matInput formControlName="emailCC" placeholder="Enter Transaction Mail CC"
+                                    type="text" />
+                                <mat-error>
+                                    <vmessage field="emailCC" [control]="form.controls['emailCC']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border px-3 mt-md-4">
+                <legend class="float-none w-auto">Discount</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>New Discount</mat-label>
+                                <input matInput formControlName="newDiscount" placeholder="Enter New Discount"
+                                    type="text" />
+                                <mat-error>
+                                    <vmessage field="newDiscount" [control]="form.controls['newDiscount']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Discount %</mat-label>
+                                <input matInput formControlName="newDiscountPercentage" placeholder="Enter Discount %"
+                                    type="number" min="0" max="100" />
+                                <mat-error>
+                                    <vmessage field="newDiscountPercentage"
+                                        [control]="form.controls['newDiscountPercentage']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-12" *ngIf="form.value.newDiscount && form.value.newDiscountPercentage">
+                        <button class="btn btn-primary mb-2 float-end" type="button"
+                            (click)="addNewDiscount(form.value.newDiscount,form.value.newDiscountPercentage)">{{index==-1
+                            ?'Add':'Update'}} Discount</button>
+                    </div>
+                    <div class="col-md-12" *ngIf="discounts.length>0">
+                        <div class="card my-2">
+                            <div class="card-body">
+                                <table class="table  table-responsive table-border w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Discount</th>
+                                            <th>Percentage</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of discounts;let i=index;">
+                                            <td>{{item.newDiscount}}</td>
+                                            <td>{{item.newDiscountPercentage}}</td>
+                                            <td><button class="btn btn-xs btn-warning ms-2 bg-warning"
+                                                    (click)="editDiscount(item.newDiscount,item.newDiscountPercentage,i)"
+                                                    mat-ripple type="button">
+                                                    <i class="bi bi-pencil text-white"></i>
+                                                </button>
+                                                <button class="btn btn-xs btn-danger ms-2 bg-danger"
+                                                    (click)="deleteDiscount(i)" mat-ripple type="button">
+                                                    <i class="bi bi-trash text-white"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </fieldset>
+            <fieldset class="border px-3 mt-md-4">
+                <legend class="float-none w-auto">Deal Locations
+                </legend>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Industry" placeholder="Select Industry"
+                            [multiple]="true" [clear]="true" [fControl]="form.controls['industryIds']"
+                            (selectionChange)="getDataByIndustryId($event)" [options]="selectIndustry">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select States" placeholder="Select States"
+                            [multiple]="true" [clear]="true" [fControl]="form.controls['stateIds']"
+                            [options]="selectStates" (selectionChange)="getRegionsByStateId($event)">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Region" placeholder="Select Regions"
+                            [multiple]="true" [clear]="true" [fControl]="form.controls['regionIds']"
+                            [options]="selectRegion" (selectionChange)="getMerchantByRegionId($event)">
+                        </lb-auto-complete>
+                    </div>
+
+                    <div class="col-md-6">
+                        <lb-auto-complete appearance="outline" label="Select Merchant" placeholder="Select Merchants"
+                            [multiple]="true" [clear]="false" [fControl]="form.controls['merchantIds']"
+                            [options]="selectMerchant">
+                        </lb-auto-complete>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border px-3 mt-md-4" *ngIf="form.value.industryDetails.length>0">
+                <legend class="float-none w-auto">Fields
+                </legend>
+                <div formArrayName="industryDetails">
+                    <ng-container *ngFor="let details of industryDetails.controls;  let i=index" [formGroupName]="i">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <mat-form-field class="w-100">
+                                        <mat-label>{{findName(selectIndustry,form.value.industryIds[i])}} - Description</mat-label>
+                                        <input matInput
+                                            [formControl]="industryDetails.controls[i].controls['description']"
+                                            placeholder="Description" type="text">
+                                        <mat-error>
+                                            <vmessage field="description"
+                                                [control]="industryDetails.controls[i].controls['description']">
+                                            </vmessage>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <mat-form-field class="w-100">
+                                        <mat-label>{{findName(selectIndustry,form.value.industryIds[i])}} - Quantity of Ticket</mat-label>
+                                        <input matInput [formControl]="industryDetails.controls[i].controls['quantity']"
+                                            placeholder="" type="number">
+                                        <mat-error>
+                                            <vmessage field="quantity"
+                                                [control]="industryDetails.controls[i].controls['quantity']">
+                                            </vmessage>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <mat-form-field class="w-100">
+                                        <mat-label>{{findName(selectIndustry,form.value.industryIds[i])}} - Portion To Location</mat-label>
+                                        <input matInput
+                                            [formControl]="industryDetails.controls[i].controls['industryPortion']"
+                                            placeholder="Portion To Location" type="number">
+                                        <mat-error>
+                                            <vmessage field="industryPortion"
+                                                [control]="industryDetails.controls[i].controls['industryPortion']">
+                                            </vmessage>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <lb-auto-complete appearance="outline" label="{{findName(selectIndustry,form.value.industryIds[i])}} - Unit" placeholder="Select Unit"
+                                    [multiple]="false" [clear]="false"
+                                    [fControl]="industryDetails.controls[i].controls['unit']" [options]="selectUnit">
+                                </lb-auto-complete>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <app-date-picker placeholderText="Select Expiry Date" label="{{findName(selectIndustry,form.value.industryIds[i])}} - Expiry Date"
+                                        [fControl]="industryDetails.controls[i].controls['expiryDate']">
+                                    </app-date-picker>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-md-12">
+                                <div class="btn btn-danger mb-3"
+                                    (click)="deletePosition(brandings.controls[i].controls['id'].value, i)">Remove Position</div>
+                            </div>
+                        </div> -->
+
+                    </ng-container>
+
+                </div>
+            </fieldset>
+            <fieldset class="border px-3 mt-md-4">
+                <legend class="float-none w-auto">General Information
+                </legend>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" formControlName="hideExpiryDate" />
+                            <label class="form-check-label">Hide Expiry Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check mt-2">
+                            <mat-label>Deal Specific Email</mat-label>
+                            <mat-radio-group aria-label="Select an option" formControlName="dealSpecificEmail"
+                                class="ms-2">
+                                <mat-radio-button [value]="checkBoolean(true)">Yes</mat-radio-button>
+                                <mat-radio-button [value]="checkBoolean(false)" class="ms-2">No</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngIf="form.value.dealSpecificEmail">
+                        <lb-auto-complete appearance="outline" label="Select Deal Template"
+                            placeholder="Select Deal Template" [multiple]="false" [clear]="false"
+                            [fControl]="form.controls['templateId']" [options]="selectDealTemplate">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check mt-2">
+                            <mat-label>Deal Start Notification</mat-label>
+                            <mat-radio-group aria-label="Select an option" formControlName="startNotification"
+                                class="ms-2">
+                                <mat-radio-button [value]="checkBoolean(true)">Yes</mat-radio-button>
+                                <mat-radio-button [value]="checkBoolean(false)" class="ms-2">No</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check mt-2">
+                            <mat-label>In House Deal</mat-label>
+                            <mat-radio-group aria-label="Select an option" formControlName="inHouseDeal" class="ms-2">
+                                <mat-radio-button [value]="checkBoolean(true)">Yes</mat-radio-button>
+                                <mat-radio-button [value]="checkBoolean(false)" class="ms-2">No</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-check mt-2">
+                            <mat-label>Ticket's Merchant Display</mat-label>
+                            <mat-radio-group aria-label="Select an option" formControlName="sortBy" class="ms-2">
+                                <mat-radio-button value="alphabetically">Alphabetically</mat-radio-button>
+                                <mat-radio-button value="priority" class="ms-2">By Merchant Priority
+                                    (A,B,C,D)</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+
+
+            <fieldset class="border px-3 mt-md-4">
+                <legend class="float-none w-auto">Checkout Customization
+                </legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Checkout Page Text</mat-label>
+                                <input matInput formControlName="checkoutText" placeholder="Enter Checkout Page Text"
+                                    type="text" />
+                                <mat-error>
+                                    <vmessage field="checkoutText" [control]="form.controls['checkoutText']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Select Banner Color</mat-label>
+                                <input matInput formControlName="bannerColorCode" placeholder="Seclect Banner Color" type="color" />
+                                <mat-error>
+                                    <vmessage field="bannerColorCode" [control]="form.controls['bannerColorCode']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Select Button Color</mat-label>
+                                <input matInput formControlName="buttonColorCode" placeholder="Seclect Button Color" type="color" />
+                                <mat-error>
+                                    <vmessage field="buttonColorCode" [control]="form.controls['buttonColorCode']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <mat-form-field class="w-100">
+                                <mat-label>Select Text Color</mat-label>
+                                <input matInput formControlName="textColorCode" placeholder="Seclect Text Color" type="color" />
+                                <mat-error>
+                                    <vmessage field="textColorCode" [control]="form.controls['textColorCode']">
+                                    </vmessage>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                   
+                    
+                    <div class="col-md-6">
+                        <button class="btn btn-danger mx-1 mb-2" mat-ripple (click)="uploadImage.click()"
+                            type="button">Upload Checkout Logo</button>
+                        <input #uploadImage type="file" hidden (change)="uploadCheckoutLogo($event)" />
+                    </div>
+                    <div class="col-md-6" *ngIf="logoPreview">
+                        <div class="custom_image">
+                            <img src="{{logoPreview}}" alt="logo" class="float-end">
+                        </div>
+                    </div>
+                </div>
+
+
+            </fieldset>
+            <div class="row mt-3">
+                <div class="col-md-2 offset-md-10">
+                    <button class="btn btn-primary float-end w-100" type="submit"
+                        mat-ripple>{{dealId?'Update':'Save'}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-loading></app-loading>

@@ -1,0 +1,286 @@
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="row">
+      <div class="col-md-8">
+        <h4>
+          <i
+          class="bi bi-arrow-left-circle-fill mt-1 me-1"
+          mat-ripple
+          routerLink="/merchant" [queryParams]="queryParams"
+        ></i>
+          Merchant Detail
+        </h4>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <button
+          type="button"
+          mat-ripple
+          class="btn btn-primary w-100 float-end"
+          routerLink="/merchant/edit/{{ merchantId }}"
+        >
+          Edit Merchant
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h4>
+        <i class="bi bi-ticket-detailed-fill me-1"> </i> Personal Information
+      </h4>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Name</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">{{ data?.name ? data?.name : "-" }}</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Email</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.email ? data?.email : "-" }}
+              </p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Phone</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">{{ data?.phone }}</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Merchant Text</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.merchantText ? data?.merchantText : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Street</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.street ? data?.street : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>City</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">{{ data?.city ? data?.city : "-" }}</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Zip Code</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.zipCode ? data?.zipCode : "-" }}
+              </p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>State</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">{{data.state}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h4>
+        <i class="bi bi-geo-alt-fill me-1"> </i> Merchant Working Locations
+      </h4>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Position</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.position ? data?.position : "-" }}
+              </p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>States</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <span
+                *ngFor="let item of  data.states
+                "
+                class="badge bg-primary text-light me-2"
+              >
+                {{ item ?item:'-' }}</span
+              >
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Industry</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data.industry }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Promoter</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{  data.promoter }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Region</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <span
+                *ngFor="let item of data.regions"
+                class="badge bg-primary text-light me-2"
+              >
+                {{ item }}</span
+              >
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Status</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{( (data?.status) ? data?.status  : "-" )| titlecase  }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h4><i class="bi bi-person-lines-fill me-1"> </i> Contact Information</h4>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Contact Name</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.contactName ? data?.contactName : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Contact Email</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.contactEmail ? data?.contactEmail : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h4><i class="bi bi-file-person me-1"> </i> General Information</h4>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Website</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.website ? data?.website : "-" }}
+              </p>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6 col-12">
+              <p>Language</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.language ? data?.language : "-" }}
+              </p>
+            </div> -->
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Communication Email</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.communicationEmail ? data?.communicationEmail : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Revenue</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.revenue ? data?.revenue : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Email Remaining Times</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{
+                  data?.emailRemainingTimes ? data?.emailRemainingTimes : "-"
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-12">
+          <div class="col-lg-6 col-md-6 col-12">
+            <p>Notes</p>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12">
+            <p class="text-secondary">{{ data?.notes ? data?.notes : "-" }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

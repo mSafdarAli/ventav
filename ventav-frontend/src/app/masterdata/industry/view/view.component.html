@@ -1,0 +1,160 @@
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="row">
+      <div class="col-md-8">
+        <h4>
+          <i
+            class="bi bi-arrow-left-circle-fill mt-1 me-1"
+            mat-ripple
+            routerLink="/masterdata/industries" [queryParams]="queryParams"
+          ></i>
+          Industry Detail
+        </h4>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <button
+          type="button"
+          mat-ripple
+          class="btn btn-primary w-100 float-end"
+          routerLink="/masterdata/industries/edit/{{ industryId }}"
+        >
+          Edit Industry
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5>
+        <i class="bi bi-ticket-detailed-fill me-1"> </i> Industry Information
+      </h5>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Name</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">{{ data?.name ? data?.name : "-" }}</p>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Redumption Success Message</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{
+                  data?.redumptionSuccessMessage
+                    ? data?.redumptionSuccessMessage
+                    : "-"
+                }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Redumption Already Message</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{
+                  data?.redumptionAlreadyMessage
+                    ? data?.redumptionAlreadyMessage
+                    : "-"
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Ticket Text</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.ticketText ? data?.ticketText : "-" }}
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Image Text</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ data?.imageText ? data?.imageText : "-" }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5><i class="bi bi-ticket-detailed-fill me-1"> </i> Questions</h5>
+      <hr class="my-1" />
+      <div class="row my-2" *ngFor="let item of data?.questions">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Question</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">
+                {{ item?.question }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <p>Options</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <p class="text-secondary">{{ item.options }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body padding-top">
+    <div class="my-2">
+      <h5><i class="bi bi-ticket-detailed-fill me-1"> </i> Images</h5>
+      <hr class="my-1" />
+      <div class="row my-2">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <p>Deal Page Images</p>
+            <div class="col-12 col-md-4"  *ngFor="let item of data.dealPageImages">
+              <img
+              [src]="item"
+              class="object-fit-contain w-100 h-100 pb-2"
+            />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="row">
+            <div class="col-12 col-md-6 ">
+              <p>Ticket Image</p>
+              <img   class="object-fit-contain w-100 h-100"
+                *ngIf="data.ticketImage[0]"
+                [src]="data.ticketImage[0]"
+              />
+              <div class="col-12 col-6"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

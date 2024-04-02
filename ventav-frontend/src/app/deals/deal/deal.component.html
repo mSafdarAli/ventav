@@ -1,0 +1,177 @@
+<div class="card mt-2">
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col-md-4">
+        <h4>Deals</h4>
+      </div>
+      <div class="col-md-4">
+        <form [formGroup]="searchForm">
+          <div class="form-group">
+            <mat-form-field class="w-100" appearance="legacy">
+              <mat-label>Search Deals</mat-label>
+              <input matInput formControlName="q" placeholder="Search Deals" type="text"
+                (keydown.enter)="filter(searchForm.value)" />
+              <mat-icon matSuffix (click)="filter(searchForm.value)">search</mat-icon>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-2">
+        <button type="button" mat-ripple class="btn btn-danger w-100 float-end" (click)="clearFilters()"
+          *ngIf="isObjectEmpty(queryParams)">
+          Clear Filters
+        </button>
+      </div>
+      <div class="col-md-2">
+        <button type="button" mat-ripple class="btn btn-primary w-100 float-end" routerLink="add" [queryParams]="queryParams">
+          Add Deal
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body">
+    <form [formGroup]="searchForm">
+      <div class="row">
+        <div class="col-md-4 col-12">
+          <div class="form-group">
+            <lb-auto-complete appearance="outline" placeholder="Filter By Promoter" label="Filter By Promoter"
+              [multiple]="false" [clear]="false" [fControl]="searchForm.controls['promoterId']"
+              [options]="selectPromoter" (selectionChange)="filter(searchForm.value)">
+            </lb-auto-complete>
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <div class="form-group">
+            <lb-auto-complete appearance="outline" placeholder="Filter By Industry" label="Filter By Industry"
+              [multiple]="false" [clear]="false" [fControl]="searchForm.controls['industryId']"
+              [options]="selectIndustry" (selectionChange)="filter(searchForm.value)">
+            </lb-auto-complete>
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <div class="form-group">
+            <lb-auto-complete appearance="outline" placeholder="Filter By Deal Firm" label="Filter By Deal Firm"
+              [multiple]="false" [clear]="false" [fControl]="searchForm.controls['firmId']" [options]="selectFirm"
+              (selectionChange)="filter(searchForm.value)">
+            </lb-auto-complete>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-md-12 col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 shadow-none">
+            <ng-container matColumnDef="dealNumber">
+              <th mat-header-cell *matHeaderCellDef>Deal Number</th>
+              <td mat-cell *matCellDef="let element">{{ element.dealNumber }}</td>
+            </ng-container>
+            <ng-container matColumnDef="dealName">
+              <th mat-header-cell *matHeaderCellDef>Deal Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.dealName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="dealSiteLink">
+              <th mat-header-cell *matHeaderCellDef>Deal Site Link</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.dealSiteLink }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="firm">
+              <th mat-header-cell *matHeaderCellDef>Firm</th>
+              <td mat-cell *matCellDef="let element">{{ element.firm }}</td>
+            </ng-container>
+            <ng-container matColumnDef="offerStartDate">
+              <th mat-header-cell *matHeaderCellDef>Offer Start Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.offerStartDate }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="offerEndDate">
+              <th mat-header-cell *matHeaderCellDef>Offer End Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.offerEndDate }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="couponExpiryDate">
+              <th mat-header-cell *matHeaderCellDef>Coupon Expiry Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.couponExpiryDate }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="couponSold">
+              <th mat-header-cell *matHeaderCellDef>Coupon Sold</th>
+              <td mat-cell *matCellDef="let element">0</td>
+            </ng-container>
+            <ng-container matColumnDef="couponGenerated">
+              <th mat-header-cell *matHeaderCellDef>Coupon Generated</th>
+              <td mat-cell *matCellDef="let element">{{element.generatedCoupons}}</td>
+            </ng-container>
+            <ng-container matColumnDef="redeemedOnline">
+              <th mat-header-cell *matHeaderCellDef>Redeemded Online</th>
+              <td mat-cell *matCellDef="let element">{{element.redeemedOnline}}</td>
+            </ng-container>
+            <ng-container matColumnDef="outstanding">
+              <th mat-header-cell *matHeaderCellDef>Outstanding</th>
+              <td mat-cell *matCellDef="let element">0</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="active">
+              <th mat-header-cell *matHeaderCellDef>Active</th>
+              <td mat-cell *matCellDef="let element">
+                <input (click)="
+                    changeDealStatus(
+                      element._id,
+                      element.active == true ? false : true
+                    )
+                  " type="checkbox" class="form-check-input ms-2" id="customCheck2" [checked]="element.active" />
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element">
+                <div class="d-flex ms-2 ms-md-0">
+                  <button class="btn btn-xs btn-secondary" routerLink="detial/{{ element._id }}"
+                    [queryParams]="queryParams">
+                    <i class="bi bi-eye text-light"></i>
+                  </button>
+  
+                  <button class="btn btn-xs btn-warning ms-1" routerLink="edit/{{ element._id }}"
+                    [queryParams]="queryParams">
+                    <i class="bi bi-pencil text-light"></i>
+                  </button>
+                  <button class="btn btn-xs btn-secondary ms-1" routerLink="/coupons/generate/{{element._id}}" 
+                    [queryParams]="queryParams">
+                    <i class="bi bi-postage text-light"></i>
+                  </button>
+                  <a *ngIf="element.inHouseDeal" class="btn btn-xs btn-success ms-1" href="{{baseUrl}}checkout/{{element._id}}" target="_blank">
+                    <i class="bi bi-code-slash"></i>
+                  </a>
+                  <button class="btn btn-xs btn-danger ms-1" (click)="deleteDeal(element._id)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+   
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row my-2">
+  <div class="col-12">
+    <pagination-control [pager]="pager" [params]="queryParams"></pagination-control>
+  </div>
+</div>
+<app-loading></app-loading>
