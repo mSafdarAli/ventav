@@ -32,20 +32,13 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <mat-form-field class="w-100">
-                                    <mat-label>Text on Tickets</mat-label>
-                                    <textarea matInput formControlName="ticketText" placeholder="Enter Text on Tickets"
-                                        type="text" rows="5"></textarea>
-                                    <mat-error>
-                                        <vmessage field="ticketText" [control]="form.controls['ticketText']">
-                                        </vmessage>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
+
+                        <div class="col-md-12 mb-md-3">
+                            <app-text-editor placeholderText="Text on Tickets"
+                                [fControl]="form.controls['ticketText']"></app-text-editor>
+                            <vmessage field="ticketText" [control]="form.controls['ticketText']"></vmessage>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 ">
                             <app-text-editor placeholderText="Text Over the Image"
                                 [fControl]="form.controls['imageText']"></app-text-editor>
                             <vmessage field="imageText" [control]="form.controls['imageText']"></vmessage>
@@ -205,7 +198,7 @@
                                             <mat-form-field class="w-100">
                                                 <mat-label>Options (Enter Comma Separated Options)</mat-label>
                                                 <input matInput formControlName="options"
-                                                    placeholder="Enter Options (Enter Comma Separated Options)" [required]="form.value.question"
+                                                    placeholder="Enter Options (Enter Comma Separated Options)" [required]="form.value.question!=null"
                                                     type="text" />
                                                 <mat-error>
                                                     <vmessage field="options" [control]="form.controls['options']">

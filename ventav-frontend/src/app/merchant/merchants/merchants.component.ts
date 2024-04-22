@@ -94,6 +94,7 @@ export class MerchantsComponent implements OnInit, OnDestroy {
     return Object.keys(objectName).length;
   }
   filter(event) {
+    console.log(this.searchForm.value)
     let obj;
     for (const [key, value] of Object.entries(this.searchForm.value)) {
       if (value != '') {

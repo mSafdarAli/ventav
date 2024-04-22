@@ -1,10 +1,10 @@
 {
 	"/files/": {
-		"target": "http://192.168.88.248:3000/",
+		"target": "http://192.168.88.52:3000/",
 		"secure": false
 	},
 	"/api/": {
-		"target": "http://192.168.88.248:3000/",
+		"target": "http://192.168.88.52:3000/",
 		"secure": false
 	}
 }

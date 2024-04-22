@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { CheckoutRoutingModule } from './checkout-routing.module';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { FormControllerModule } from 'src/app/shared/form-controller/form-controller.module';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 
 @NgModule({
   declarations: [
-    CheckoutComponent
+    CheckoutComponent,
+    ConfirmationComponent
   ],
   imports: [
     CommonModule,

@@ -39,15 +39,19 @@ a {
 
 table {
     width: 100%;
+
     .mat-header-cell {
         font-size: 16px;
     }
 }
 
-.weight_500{
+.weight_500 {
     font-weight: 500;
 }
 
-.mat-header-cell{
-        min-width: 170px
-    }
+.mat-header-cell {
+    min-width: 170px
+}
+.notFound{
+ color: #d2d2d2 ;   
+}

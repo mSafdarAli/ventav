@@ -47,8 +47,8 @@ export class RedeemCouponComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
       answer: [''],
-      stateId: ['',[Validators.required]],
-      regionId: ['',[Validators.required]],
+      stateIds: ['',[Validators.required]],
+      regionIds: ['',[Validators.required]],
 
     });
     if (this.industryId != null) {
@@ -83,14 +83,16 @@ export class RedeemCouponComponent implements OnInit, OnDestroy {
       },
     });
   }
-  getRegionsByStateId(stateId) {
+
+  getRegionsByStateId(stateIds) {
     this.regionsByStateId = [];
-    this.selectRegionReference.forEach((x) => {
-      if (x.stateId == stateId) {
-        this.regionsByStateId.push(x);
-      }
-    })
-  
+    stateIds.forEach((stateId) => {
+      this.selectRegionReference.forEach((x) => {
+        if (x.stateId == stateId) {
+          this.regionsByStateId.push(x);
+        }
+      })
+    });
     this.selectRegion = this.regionsByStateId;
   }
   customStyle(background, text) {

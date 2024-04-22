@@ -21,7 +21,7 @@ export class IframeComponent implements OnInit {
   }
  
   copyClipboard(event) {
-    navigator.clipboard.writeText(event.target.defaultValue);
+    navigator.clipboard.writeText(event);
     this.toaster.success('Successfully', 'Copy');
   }
 }

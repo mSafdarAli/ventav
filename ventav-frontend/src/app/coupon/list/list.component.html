@@ -30,21 +30,43 @@
     <div class="card-body">
         <form [formGroup]="searchForm">
             <div class="row">
-                <div class="col-md-4 col-12">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
-                        <lb-auto-complete appearance="outline" placeholder="Filter By Promoter" label="Filter By Deal"
-                            [multiple]="false" [clear]="false" [fControl]="searchForm.controls['dealId']"
-                            [options]="selectDeal" (selectionChange)="filter(searchForm.value)">
-                        </lb-auto-complete>
+                        <mat-form-field class="w-100">
+                            <mat-label>Filter By Deal</mat-label>
+                            <input type="text" (keyup)="getDeals()"  placeholder="Filter By Deal"
+                                aria-label="Number" matInput formControlName="dealId"
+                                [matAutocomplete]="auto2" >
+                            <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn"
+                                (optionSelected)="filter($event); ">
+                                <mat-option *ngFor="let option of selectDeal" [value]="option">
+                                    {{option.name}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
                     </div>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <lb-auto-complete appearance="outline" placeholder="Filter By Redeemded Online"
                             label="Filter By Redeemded Online" [multiple]="false" [clear]="false"
                             [fControl]="searchForm.controls['redeemOnline']" [options]="selectStatus"
                             (selectionChange)="filter(searchForm.value)">
                         </lb-auto-complete>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12">
+                    <div class="form-group">
+                        <app-date-picker placeholderText="Select From Date" label="Select From Date"
+                        [fControl]="searchForm.controls['from']" (selectedValue)="filter($event)">
+                    </app-date-picker>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12">
+                    <div class="form-group">
+                        <app-date-picker placeholderText="Select To Date" label="Select To Date"
+                            [fControl]="searchForm.controls['to']" (selectedValue)="filter($event)">
+                        </app-date-picker>
                     </div>
                 </div>
             </div>
@@ -114,6 +136,9 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
+                    <div class="text-center mt-4 notFound" *ngIf="dataSource.length==0" >
+                        <h2>No Record Found</h2>
+                    </div>
                 </div>
             </div>
         </div>

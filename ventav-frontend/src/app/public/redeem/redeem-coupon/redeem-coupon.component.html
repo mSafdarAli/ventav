@@ -29,16 +29,16 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <lb-auto-complete appearance="outline" label="Select State"
-                                                    placeholder="Select State" [multiple]="false" [clear]="false"
-                                                    [fControl]="form.controls['stateId']" [options]="selectState" (selectionChange)="getRegionsByStateId($event)">
+                                                    placeholder="Select State" [multiple]="true" [clear]="true"
+                                                    [fControl]="form.controls['stateIds']" [options]="selectState" (selectionChange)="getRegionsByStateId($event)">
                                                 </lb-auto-complete>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <lb-auto-complete appearance="outline" label="Select Region"
-                                                    placeholder="Select Region" [multiple]="false" [clear]="false"
-                                                    [fControl]="form.controls['regionId']" [options]="selectRegion">
+                                                    placeholder="Select Region" [multiple]="true" [clear]="true"
+                                                    [fControl]="form.controls['regionIds']" [options]="selectRegion">
                                                 </lb-auto-complete>
                                             </div>
                                         </div>

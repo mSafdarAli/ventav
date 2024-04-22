@@ -13,6 +13,17 @@
     border-left: 0;
     border-style: dashed !important;
 }
+.used_tag{
+    background-color: red;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    border-radius: 10px;
+    transform: rotate(-20deg);
+    margin-top: -200px;
+    color: white;
+  
+}
 
 .custom-height{
     min-height: 20px;
@@ -34,8 +45,9 @@
     height: 100%;
 
     img {
-        object-fit: cover;
-        max-width: 300px;
-        max-height: 300px;
+        // object-fit: cover;
+        max-width: 400px;
+        width: 400px;
+        max-height: 400px;
     }
 }

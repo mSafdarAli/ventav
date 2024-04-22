@@ -24,7 +24,7 @@ const routes: Routes = [
       {
         path: "ticket-preview",
         loadChildren: () => import('./public/ticket-preview/ticket-preview.module').then(m => m.TicketPreviewModule),
-      },
+      }
     ]
   },
   {
@@ -69,6 +69,11 @@ const routes: Routes = [
       {
         path: "profile",
         loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: "customers",
+        loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule),
         canActivate: [AuthGuard]
       },
      

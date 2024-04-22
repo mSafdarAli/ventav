@@ -15,7 +15,7 @@
 <div class="card mt-2">
     <div class="card-body px-2">
         <form [formGroup]="form" (ngSubmit)="submit()">
-            <fieldset class="border px-3">
+            <fieldset class="border px-3 pb-3">
                 <legend class="float-none w-auto">Personal Information
                 </legend>
                 <div class="row">
@@ -53,19 +53,6 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <mat-form-field class="w-100">
-                                <mat-label>Merchant Text</mat-label>
-                                <input matInput formControlName="merchantText" placeholder="Enter Merchant Text"
-                                    type="text" />
-                                <mat-error>
-                                    <vmessage field="merchantText" [control]="form.controls['merchantText']">
-                                    </vmessage>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <mat-form-field class="w-100">
                                 <mat-label>Phone</mat-label>
                                 <input matInput formControlName="phone" placeholder="Enter Phone" type="tel" />
                                 <mat-error>
@@ -76,7 +63,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <mat-form-field class="w-100">
                                 <mat-label>Street</mat-label>
@@ -88,7 +75,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <mat-form-field class="w-100">
                                 <mat-label>City</mat-label>
@@ -101,7 +88,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <mat-form-field class="w-100">
                                 <mat-label>Zip Code</mat-label>
@@ -112,6 +99,11 @@
                                 </mat-error>
                             </mat-form-field>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <app-text-editor placeholderText="Merchant Text"
+                        [fControl]="form.controls['merchantText']"></app-text-editor>
+                    <vmessage field="merchantText" [control]="form.controls['merchantText']"></vmessage>
                     </div>
                 </div>
             </fieldset>

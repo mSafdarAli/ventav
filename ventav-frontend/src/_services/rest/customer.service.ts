@@ -7,23 +7,18 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class CheckoutService {
+export class CustomerService {
   constructor(private http: HttpClient) { }
 
+  
 
-
-  getDealDetails(id) {
-    return this.http.get(environment.api + 'checkout/getDeal/' + id).pipe(map((res) => {
+  getAllCustomers(params) {
+    return this.http.get(environment.api + 'customers', { params: params }).pipe(map((res) => {
       return res;
     })
     );
   }
-  checkout(data) {
-    return this.http.post(environment.api + 'payments' ,data).pipe(map((res) => {
-      return res;
-    })
-    );
-  }
+ 
 
 
 }

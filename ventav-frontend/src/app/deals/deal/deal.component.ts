@@ -43,8 +43,8 @@ export class DealComponent implements OnInit {
   ) { 
     this.searchForm=this.formBuilder.group({
       q:[''],
-      promoterId:[''],
-      industryId:[''],
+      promoterIds:[''],
+      industryIds:[''],
       firmId:['']
     })
     this.routSub = this.route.queryParams.subscribe((qparams) => {

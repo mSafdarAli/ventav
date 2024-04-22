@@ -1,10 +1,11 @@
-<div class="card my-lg-2" [style]="customStyle(data.bannerColorCode,data.textColorCode)">
+<div class="card my-lg-2" [style]="customStyle(data?.bannerColorCode,data?.textColorCode)">
     <div class="card-body">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-4 col-lg-2">
                     <div class="custom_image">
-                        <img [src]="data.checkoutLogo" onError="this.src='/assets/images/ventav.jpg'" alt="checkout logo">
+                        <img [src]="data?.checkoutLogo" onError="this.src='/assets/images/ventav.jpg'"
+                            alt="checkout logo">
                     </div>
                 </div>
                 <div class="col-md-2 col-lg-6"></div>
@@ -30,10 +31,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-center my-3">
-                                <h5>{{data.checkoutText}}</h5>
+                                <h5>{{data?.checkoutText}}</h5>
                             </div>
                             <div class="my-3 text-center text-danger">
-                                <h6>* 1 All-Day Tickets with Equipment Rentals - ${{data.customerPrice}}</h6>
+                                <h6>* {{(form.value.ticketQuantity)?form.value.ticketQuantity:1}} All-Day Tickets with Equipment Rentals - ${{(price==0)?data?.customerPrice:price}}</h6>
                             </div>
                         </div>
                     </div>
@@ -45,32 +46,38 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <lb-auto-complete appearance="outline" label="Select Ticket Quantity"
-                                        placeholder="Select Ticket Quantity" [multiple]="false" [clear]="false"
-                                        [fControl]="form.controls['ticketQuantity']" [options]="selectTicket">
-                                    </lb-auto-complete>
+                                    <mat-form-field class="w-100">
+                                        <mat-label>Ticket Quantity</mat-label>
+                                        <input matInput formControlName="ticketQuantity" placeholder="Ticket Quantity"
+                                            type="number" (change)="ticketPrices(form.value.ticketQuantity)"/>
+                                        <mat-error>
+                                            <vmessage field="ticketQuantity"
+                                                [control]="form.controls['ticketQuantity']">
+                                            </vmessage>
+                                        </mat-error>
+                                    </mat-form-field>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <h5>Select Location</h5>
                                 <hr>
                             </div>
-                            <div class="col-md-7 col-12">
-                                <p>Choose your preferred location(s) from hundreds of participating fields
-                                    (To select more than one, hold the Control Key.)</p>
+                            <div class="col-md-12">
+                                <p>* Choose your preferred locations from hundreds of participating fields</p>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <lb-auto-complete appearance="outline" label="Select States"
-                                        placeholder="Select States" [multiple]="false" [clear]="false"
-                                        [fControl]="form.controls['stateIds']" [options]="selectState" (selectionChange)="getRegionByStateId($event)">
+                                        placeholder="Select States" [multiple]="true" [clear]="false"
+                                        [fControl]="form.controls['stateIds']" [options]="selectState"
+                                        (selectionChange)="getRegionByStateId($event)">
                                     </lb-auto-complete>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <lb-auto-complete appearance="outline" label="Select Regions"
-                                        placeholder="Select Regions" [multiple]="false" [clear]="false"
+                                        placeholder="Select Regions" [multiple]="true" [clear]="false"
                                         [fControl]="form.controls['regionIds']" [options]="selectRegion">
                                     </lb-auto-complete>
                                 </div>
@@ -83,7 +90,8 @@
                                 <div class="form-group">
                                     <mat-form-field class="w-100">
                                         <mat-label>First Name</mat-label>
-                                        <input matInput formControlName="firstName" placeholder="Enter First Name" type="text" />
+                                        <input matInput formControlName="firstName" placeholder="Enter First Name"
+                                            type="text" />
                                         <mat-error>
                                             <vmessage field="firstName" [control]="form.controls['firstName']">
                                             </vmessage>
@@ -121,8 +129,7 @@
                                 <div class="form-group">
                                     <mat-form-field class="w-100">
                                         <mat-label>Phone</mat-label>
-                                        <input matInput formControlName="phone" placeholder="Enter Phone"
-                                            type="tel" />
+                                        <input matInput formControlName="phone" placeholder="Enter Phone" type="tel" />
                                         <mat-error>
                                             <vmessage field="phone" [control]="form.controls['phone']">
                                             </vmessage>
@@ -132,8 +139,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <app-date-picker placeholderText="Select Date of Birth"
-                                        label="Select Date of Birth" [fControl]="form.controls['dob']">
+                                    <app-date-picker placeholderText="Select Date of Birth" label="Select Date of Birth"
+                                        [fControl]="form.controls['dob']">
                                     </app-date-picker>
                                 </div>
                             </div>
@@ -153,10 +160,10 @@
                                 <div class="form-group">
                                     <mat-form-field class="w-100">
                                         <mat-label>Credit Card Number</mat-label>
-                                        <input matInput formControlName="cardNo" placeholder="Credit Card Number"
+                                        <input matInput formControlName="cardNumber" placeholder="Credit Card Number" (input)="checkCardNumber(form.value.cardNumber)"
                                             type="number" />
                                         <mat-error>
-                                            <vmessage field="cardNo" [control]="form.controls['cardNo']">
+                                            <vmessage field="cardNumber" [control]="form.controls['cardNumber']">
                                             </vmessage>
                                         </mat-error>
                                     </mat-form-field>
@@ -164,19 +171,24 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <app-date-picker placeholderText="Exp mm/yyyy"
-                                        label="Exp mm/yyyy" [fControl]="form.controls['cardExpiry']">
-                                    </app-date-picker>
+                                    <mat-form-field class="w-100">
+                                        <mat-label>Card Expiry</mat-label>
+                                        <input matInput formControlName="cardExpiry" placeholder="Exp mm/yy"
+                                            type="text" />
+                                        <mat-error>
+                                            <vmessage field="cardExpiry" [control]="form.controls['cardExpiry']">
+                                            </vmessage>
+                                        </mat-error>
+                                    </mat-form-field>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <mat-form-field class="w-100">
                                         <mat-label>CVV</mat-label>
-                                        <input matInput formControlName="cvv" placeholder="CVV"
-                                            type="number" />
+                                        <input matInput formControlName="securityCode" placeholder="CVV" type="number" (input)="checkCvv(form.value.securityCode)" />
                                         <mat-error>
-                                            <vmessage field="cvv" [control]="form.controls['cvv']">
+                                            <vmessage field="securityCode" [control]="form.controls['securityCode']">
                                             </vmessage>
                                         </mat-error>
                                     </mat-form-field>
@@ -186,8 +198,7 @@
                                 <div class="form-group">
                                     <mat-form-field class="w-100">
                                         <mat-label>Address</mat-label>
-                                        <input matInput formControlName="address" placeholder="Address"
-                                            type="text" />
+                                        <input matInput formControlName="address" placeholder="Address" type="text" />
                                         <mat-error>
                                             <vmessage field="address" [control]="form.controls['address']">
                                             </vmessage>
@@ -199,8 +210,7 @@
                                 <div class="form-group">
                                     <mat-form-field class="w-100">
                                         <mat-label>City</mat-label>
-                                        <input matInput formControlName="city" placeholder="City"
-                                            type="number" />
+                                        <input matInput formControlName="city" placeholder="City" type="text" />
                                         <mat-error>
                                             <vmessage field="city" [control]="form.controls['city']">
                                             </vmessage>
@@ -210,23 +220,17 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <mat-form-field class="w-100">
-                                        <mat-label>State</mat-label>
-                                        <input matInput formControlName="state" placeholder="State"
-                                            type="number" />
-                                        <mat-error>
-                                            <vmessage field="state" [control]="form.controls['state']">
-                                            </vmessage>
-                                        </mat-error>
-                                    </mat-form-field>
+                                    <lb-auto-complete appearance="outline" label="State"
+                                        placeholder="Select States" [multiple]="false" [clear]="false"
+                                        [fControl]="form.controls['stateId']" [options]="selectState">
+                                    </lb-auto-complete>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <mat-form-field class="w-100">
                                         <mat-label>Zipcode</mat-label>
-                                        <input matInput formControlName="zipCode" placeholder="Zipcode"
-                                            type="number" />
+                                        <input matInput formControlName="zipCode" placeholder="Zipcode" type="number" />
                                         <mat-error>
                                             <vmessage field="zipCode" [control]="form.controls['zipCode']">
                                             </vmessage>
@@ -239,20 +243,29 @@
                                     <mat-form-field class="w-100">
                                         <mat-label>Discount Code</mat-label>
                                         <input matInput formControlName="discountCode" placeholder="Discount Code"
-                                            type="number" />
+                                            type="text" />
                                         <mat-error>
                                             <vmessage field="discountCode" [control]="form.controls['discountCode']">
                                             </vmessage>
                                         </mat-error>
                                     </mat-form-field>
+                                    <p *ngIf="appliedDiscount">The Discount Code has been Successfully Applied. {{appliedDiscount}}%</p>  
+                                    <p *ngIf="discountError">The Discount Code is Invalid.</p>  
                                 </div>
                             </div>
-                            <div class="col-md-12 text-center">
-                                <h5>Purchase Total : <b>$25.00</b></h5>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary  w-25 py-3" type="button" (click)="checkForDiscount(form.value.discountCode)"
+                                mat-ripple>Apply</button>
+                            </div>
+                            <div class="col-md-12 text-center" *ngIf="price">
+                                <h5>Purchase Total : <b>${{price}}</b></h5>
+                                 
                             </div>
                             <div class="col-md-12 text-center">
-                                <p class="text-danger">* Please only click purchase once. Multiple clicks may result to multiple purchases!</p>
-                                <button type="submit" [style]="customStyle(data.buttonColorCode,data.textColorCode)" class="btn w-100">PURCHASE</button>
+                                <p class="text-danger">* Please only click purchase once. Multiple clicks may result to
+                                    multiple purchases!</p>
+                                <button type="submit" [style]="customStyle(data?.buttonColorCode,data?.textColorCode)"
+                                    class="btn w-100">Proceed</button>
                             </div>
                         </div>
                     </form>

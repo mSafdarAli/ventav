@@ -135,10 +135,12 @@
           <div class="row">
             <p>Deal Page Images</p>
             <div class="col-12 col-md-4"  *ngFor="let item of data.dealPageImages">
-              <img
-              [src]="item"
-              class="object-fit-contain w-100 h-100 pb-2"
-            />
+              <div class="ticket-holder">
+                <img
+                [src]="item"
+                class="object-fit-contain w-100 h-100 pb-2"
+              />
+              </div>
             </div>
           </div>
         </div>
@@ -146,10 +148,12 @@
           <div class="row">
             <div class="col-12 col-md-6 ">
               <p>Ticket Image</p>
-              <img   class="object-fit-contain w-100 h-100"
-                *ngIf="data.ticketImage[0]"
-                [src]="data.ticketImage[0]"
-              />
+              <div class="ticket-holder">
+                <img   class="object-fit-contain w-100 h-100"
+                  *ngIf="data.ticketImage[0]"
+                  [src]="data.ticketImage[0]"
+                />
+              </div>
               <div class="col-12 col-6"></div>
             </div>
           </div>

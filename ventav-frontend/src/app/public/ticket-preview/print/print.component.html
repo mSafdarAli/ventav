@@ -1,0 +1,136 @@
+<div class="px-1 mt-2">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="submit()">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <lb-auto-complete appearance="outline" label="Select Ticket Quantity"
+                                placeholder="Select Ticket Quantity" [multiple]="false" [clear]="false"
+                                [fControl]="form.controls['ticketQuantity']" [options]="selectQuantity">
+                            </lb-auto-complete>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <lb-auto-complete appearance="outline" label="Select Location" placeholder="Select Location"
+                                [multiple]="false" [clear]="false" [fControl]="form.controls['location']"
+                                [options]="selectLocation">
+                            </lb-auto-complete>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100 py-3 mt-1 font-18">Use</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div class="px-3 mt-2">
+    <div class="row">
+        <div class="col-md-8 order-2 order-md-1">
+            <ng-container *ngFor="let item of [1,2,3,4,5]">
+                <div class="row border border-1 rounded border-['#D2D2D2'] mb-2" >
+                    <div class="col-md-4 col-12  bg-light details">
+                        <div class="p-3">
+                            <div class="img-holder text-center">
+                                <img src="assets/images/ventav.jpg" alt="industry-logo" class="">
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <h5>Name</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Danish</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Quantity</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>27</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Expiration Date</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>27-10-2023</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Redemption Code</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>1364127</h5>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="text-center img-holder mt-4">
+                                        <img src="/assets/images/barcode.gif" alt="bar-code">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-12 ticket_image">
+                        <div class="p-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="ticket-text">
+                                        <h3>Thank you for your purchase from Promotional Passes.</h3>
+
+                                    </div>
+                                    <div class="deal-images">
+                                        <div class="ticket-holder">
+                                            <img src="/assets/images/ticketBackground.jpg" alt="ticket-image"
+                                                class="img-thumbnail">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="used_tag">
+                                <h5>Used At PaintBall Location</h5>
+                                <h5>23-12-2023</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="col-md-4 pe-0 order-1 order-md-2">
+            <div class="card card-body">
+                <div class="locations">
+                    <h4>Valid at the Following Locations</h4>
+                    <p>* Valid for one use at each location once a week. *</p>
+                    <ng-container *ngFor="let item of [1,2,3,4,1]">
+                        <span class="d-block"><i class="bi bi-pin-fill text-danger"></i> The Backstreet
+                            Brewery
+                            15 Main street B 100
+                            Vista California, 92083 {{item}}</span>
+                    </ng-container>
+
+                </div>
+                <div class="mt-3">
+                    <p>Good Once a Week for Buy Get One Free! <a href="">iampositivists.com</a> </p>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-body">
+                    <div class="">
+                        <h4>Notes</h4>
+                        <p class="mb-0">* SELECT THE QUANITY AND THE LOCATION OF CHOICE</p>
+                        <p class="mb-0">* THE QUANITY AVAIABLE WILL UPDATE AFTER EACH USE</p>
+                        <p class="mb-0">* SELECT "USE NOW" IN FRONT OF STAFF MEMBER. DATE STAMP WILL APPEAR ONCE
+                            USE
+                            NOW IS SELECTED.</p>
+                        <p class="mb-0">* YOU CAN USE ONE FREE BEER PER DAY PER LOCATION WITH THE PURCHASE OF
+                            ONE
+                            OTHER BEER.</p>
+                        <p class="mb-0">* THIS IS A FREE BEER WITH A PURCHASE OF AN EQUAL OR LESSER VALUE BEER
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

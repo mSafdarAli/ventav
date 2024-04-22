@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import * as moment from 'moment';
 
 export const MY_FORMATS = {
 	parse: {
@@ -34,20 +35,28 @@ export class DatePcikerComponent implements OnInit {
 	@Input() public placeholderText: string = '';
 	@Input() label: string = '';
 	@Input() disabled: boolean = false;
+	@Input() change: boolean = false;
 	@Input() public startView: 'month' | 'year' | 'multi-year' = 'month';
-
+	@Output() selectedValue: EventEmitter<any> = new EventEmitter();
 	constructor() {
+		
 	}
 	ngOnInit() {
 	}
 	closeDatePicker(eventData: any, picker?: any, isclose: boolean = false) {
 		if (isclose) {
 			picker.close();
+
 		}
 	}
 	focusOpen(picker) {
 		if(!(('ontouchstart' in window) || (navigator.maxTouchPoints > 0))) {
 			picker.open();
+			this.change=false;
 		}
+	}
+	dateChange(event){
+		this.change=true;
+		this.selectedValue.emit(this.change);
 	}
 }

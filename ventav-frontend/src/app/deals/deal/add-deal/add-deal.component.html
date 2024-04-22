@@ -297,12 +297,87 @@
                 </legend>
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <lb-auto-complete appearance="outline" label="Select Industry" placeholder="Select Industry"
                             [multiple]="true" [clear]="true" [fControl]="form.controls['industryIds']"
                             (selectionChange)="getDataByIndustryId($event)" [options]="selectIndustry">
                         </lb-auto-complete>
                     </div>
+                    <div class="col-md-12">
+                        <fieldset class="border px-3 mb-4" *ngIf="form.value.industryDetails.length>0">
+                            <legend class="float-none w-auto">Fields
+                            </legend>
+                            <div formArrayName="industryDetails">
+                                <ng-container *ngFor="let details of industryDetails.controls;  let i=index" [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <mat-form-field class="w-100">
+                                                    <mat-label>{{findName(selectIndustry,form.value.industryIds[i])}} - Description</mat-label>
+                                                    <input matInput
+                                                        [formControl]="industryDetails.controls[i].controls['description']"
+                                                        placeholder="Description" type="text">
+                                                    <mat-error>
+                                                        <vmessage field="description"
+                                                            [control]="industryDetails.controls[i].controls['description']">
+                                                        </vmessage>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+            
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <mat-form-field class="w-100">
+                                                    <mat-label>{{findName(selectIndustry,form.value.industryIds[i])}} - Quantity of Ticket</mat-label>
+                                                    <input matInput [formControl]="industryDetails.controls[i].controls['quantity']"
+                                                        placeholder="" type="number">
+                                                    <mat-error>
+                                                        <vmessage field="quantity"
+                                                            [control]="industryDetails.controls[i].controls['quantity']">
+                                                        </vmessage>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <mat-form-field class="w-100">
+                                                    <mat-label>{{findName(selectIndustry,form.value.industryIds[i])}} - Portion To Location</mat-label>
+                                                    <input matInput
+                                                        [formControl]="industryDetails.controls[i].controls['industryPortion']"
+                                                        placeholder="Portion To Location" type="number">
+                                                    <mat-error>
+                                                        <vmessage field="industryPortion"
+                                                            [control]="industryDetails.controls[i].controls['industryPortion']">
+                                                        </vmessage>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <lb-auto-complete appearance="outline" label="{{findName(selectIndustry,form.value.industryIds[i])}} - Unit" placeholder="Select Unit"
+                                                [multiple]="false" [clear]="false"
+                                                [fControl]="industryDetails.controls[i].controls['unit']" [options]="selectUnit">
+                                            </lb-auto-complete>
+                                        </div>
+            
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <app-date-picker placeholderText="Select Expiry Date" label="{{findName(selectIndustry,form.value.industryIds[i])}} - Expiry Date"
+                                                    [fControl]="industryDetails.controls[i].controls['expiryDate']">
+                                                </app-date-picker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+            
+                                </ng-container>
+            
+                            </div>
+                        </fieldset>
+                    </div>
+                    
                     <div class="col-md-6">
                         <lb-auto-complete appearance="outline" label="Select States" placeholder="Select States"
                             [multiple]="true" [clear]="true" [fControl]="form.controls['stateIds']"
@@ -324,83 +399,7 @@
                     </div>
                 </div>
             </fieldset>
-            <fieldset class="border px-3 mt-md-4" *ngIf="form.value.industryDetails.length>0">
-                <legend class="float-none w-auto">Fields
-                </legend>
-                <div formArrayName="industryDetails">
-                    <ng-container *ngFor="let details of industryDetails.controls;  let i=index" [formGroupName]="i">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <mat-form-field class="w-100">
-                                        <mat-label>{{findName(selectIndustry,form.value.industryIds[i])}} - Description</mat-label>
-                                        <input matInput
-                                            [formControl]="industryDetails.controls[i].controls['description']"
-                                            placeholder="Description" type="text">
-                                        <mat-error>
-                                            <vmessage field="description"
-                                                [control]="industryDetails.controls[i].controls['description']">
-                                            </vmessage>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <mat-form-field class="w-100">
-                                        <mat-label>{{findName(selectIndustry,form.value.industryIds[i])}} - Quantity of Ticket</mat-label>
-                                        <input matInput [formControl]="industryDetails.controls[i].controls['quantity']"
-                                            placeholder="" type="number">
-                                        <mat-error>
-                                            <vmessage field="quantity"
-                                                [control]="industryDetails.controls[i].controls['quantity']">
-                                            </vmessage>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <mat-form-field class="w-100">
-                                        <mat-label>{{findName(selectIndustry,form.value.industryIds[i])}} - Portion To Location</mat-label>
-                                        <input matInput
-                                            [formControl]="industryDetails.controls[i].controls['industryPortion']"
-                                            placeholder="Portion To Location" type="number">
-                                        <mat-error>
-                                            <vmessage field="industryPortion"
-                                                [control]="industryDetails.controls[i].controls['industryPortion']">
-                                            </vmessage>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <lb-auto-complete appearance="outline" label="{{findName(selectIndustry,form.value.industryIds[i])}} - Unit" placeholder="Select Unit"
-                                    [multiple]="false" [clear]="false"
-                                    [fControl]="industryDetails.controls[i].controls['unit']" [options]="selectUnit">
-                                </lb-auto-complete>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <app-date-picker placeholderText="Select Expiry Date" label="{{findName(selectIndustry,form.value.industryIds[i])}} - Expiry Date"
-                                        [fControl]="industryDetails.controls[i].controls['expiryDate']">
-                                    </app-date-picker>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="btn btn-danger mb-3"
-                                    (click)="deletePosition(brandings.controls[i].controls['id'].value, i)">Remove Position</div>
-                            </div>
-                        </div> -->
-
-                    </ng-container>
-
-                </div>
-            </fieldset>
+            
             <fieldset class="border px-3 mt-md-4">
                 <legend class="float-none w-auto">General Information
                 </legend>
@@ -421,12 +420,7 @@
                             </mat-radio-group>
                         </div>
                     </div>
-                    <div class="col-md-4" *ngIf="form.value.dealSpecificEmail">
-                        <lb-auto-complete appearance="outline" label="Select Deal Template"
-                            placeholder="Select Deal Template" [multiple]="false" [clear]="false"
-                            [fControl]="form.controls['templateId']" [options]="selectDealTemplate">
-                        </lb-auto-complete>
-                    </div>
+                    
                     <div class="col-md-4">
                         <div class="form-check mt-2">
                             <mat-label>Deal Start Notification</mat-label>
@@ -460,6 +454,14 @@
                     </div>
 
                 </div>
+                <div class="row mt-2" *ngIf="form.value.dealSpecificEmail">
+                    <div class="col-md-4" >
+                        <lb-auto-complete appearance="outline" label="Select Deal Template"
+                            placeholder="Select Deal Template" [multiple]="false" [clear]="false"
+                            [fControl]="form.controls['templateId']" [options]="selectDealTemplate">
+                        </lb-auto-complete>
+                    </div>
+                </div>
 
             </fieldset>
 
@@ -473,7 +475,7 @@
                         <div class="form-group">
                             <mat-form-field class="w-100">
                                 <mat-label>Checkout Page Text</mat-label>
-                                <input matInput formControlName="checkoutText" placeholder="Enter Checkout Page Text"
+                                <input matInput formControlName="checkoutText" placeholder="Enter Checkout Page Text" [required]="form.value.inHouseDeal"
                                     type="text" />
                                 <mat-error>
                                     <vmessage field="checkoutText" [control]="form.controls['checkoutText']">

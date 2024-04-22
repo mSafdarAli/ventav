@@ -10,6 +10,7 @@ import { MessageService } from 'src/_services/message.service';
 import { CouponService } from 'src/_services/rest/coupon.service';
 import { LookUpService } from 'src/_services/rest/lookup.service';
 import { PaginationService } from 'src/_services/rest/pagination.service';
+import { changeDateToApiFormat } from 'src/_services/utility';
 
 @Component({
   selector: 'app-list',
@@ -39,7 +40,10 @@ export class ListComponent implements OnInit, OnDestroy {
     this.searchForm = this.formBuilder.group({
       q: [''],
       dealId: [''],
-      redeemOnline: ['']
+      redeemOnline: [''],
+      from: [''],
+      to: ['']
+
     })
     this.routSub = this.route.queryParams.subscribe((qparams) => {
       this.queryParams = Object.assign({}, qparams);
@@ -55,16 +59,26 @@ export class ListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.selectStatus = this.lookupService.getRedeemStatus();
-    this.getAllDealLookup();
   }
   filter(event) {
     let obj;
     for (const [key, value] of Object.entries(this.searchForm.value)) {
       if (value != '') {
         obj = Object.assign({}, obj);
-        obj[key] = value;
+        if (typeof value == 'object' && value!=null) {
+          if (key == 'from' || key == 'to') {
+            obj[key] = changeDateToApiFormat(value);
+          }
+          else {
+            obj[key] = value['value'];
+          }
+        }
+        else {
+          obj[key] = value;
+        }
       }
     }
+
     this.router.navigate([], {
       queryParams: obj
     });
@@ -80,21 +94,28 @@ export class ListComponent implements OnInit, OnDestroy {
   isObjectEmpty(objectName) {
     return Object.keys(objectName).length;
   }
-  getAllDealLookup() {
-    const sub = this.lookupService.getAllDealLookup().subscribe({
-      next: (res) => {
-        this.selectDeal = res['data'];
-        sub.unsubscribe();
-      },
-      error: (res) => {
-        sub.unsubscribe();
-      },
-    });
+  getDeals() {
+    this.selectDeal=[];
+    if (this.searchForm.value.dealId.length > 2) {
+      const sub = this.lookupService.getAllDealLookup({ dealName: this.searchForm.value.dealId}).subscribe({
+        next: (res) => {
+          this.selectDeal = res['data'];
+          sub.unsubscribe();
+        },
+        error: (res) => {
+        },
+      });
+    }
   }
+  displayFn(option) {
+    return option?.name;
+  }
+ 
   getAllCoupons(params = null) {
     const sub = this.couponService.getAllCoupons(params).subscribe({
       next: (res) => {
         this.dataSource = res['data'];
+        this.selectDeal=[];
         this.pager = this.pagination.compile(
           Object.assign({}, this.queryParams, { count: res['pagination'].total })
         );

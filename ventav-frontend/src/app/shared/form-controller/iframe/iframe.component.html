@@ -4,9 +4,10 @@
         <div class="form-group">
             <mat-form-field class="w-100">
                 <mat-label>{{path=='redeem-coupon' ? 'Redeem':'Checkout' }} Page Code</mat-label>
-                <textarea matInput placeholder="" type="text" rows="5" col="50" readonly (click)="copyClipboard($event)">
+                <textarea matInput placeholder="" type="text" rows="5" col="50" readonly #iframe>
                     <iframe src="{{url}}"  style="border:0px #ffffff none;" name="myiFrame" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="800px" width="100%"   allowfullscreen></iframe>
                 </textarea>
+                <i class="bi bi-clipboard float-end h5" (click)="copyClipboard(iframe.value)"></i>
             </mat-form-field>
         </div>
     </div>

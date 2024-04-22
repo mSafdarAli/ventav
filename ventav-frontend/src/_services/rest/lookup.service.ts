@@ -19,7 +19,7 @@ export class LookUpService {
     }
     return years;
   }
- 
+
   public getRating() {
     return [
       { name: '1', value: '1' },
@@ -123,6 +123,13 @@ export class LookUpService {
       })
     );
   }
+  public getAllStatesCheckout() {
+    return this.http.get(environment.api + 'checkout/getStates').pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
   public getAllRoles() {
     return this.http.get(environment.api + 'lookup/getRoles').pipe(
       map((res) => {
@@ -143,15 +150,21 @@ export class LookUpService {
     })
     );
   }
-  
+  getRegionByStateIdCheckout(id) {
+    return this.http.get(environment.api + 'checkout/getRegions/' + id).pipe(map((res) => {
+      return res;
+    })
+    );
+  }
+
   getAllFirms() {
     return this.http.get(environment.api + 'lookup/getFirms').pipe(map((res) => {
       return res;
     })
     );
   }
-  getAllDealLookup() {
-    return this.http.get(environment.api + 'lookup/getDeals').pipe(map((res) => {
+  getAllDealLookup(params = null) {
+    return this.http.get(environment.api + 'lookup/getDeals', { params: params }).pipe(map((res) => {
       return res;
     })
     );
@@ -163,12 +176,11 @@ export class LookUpService {
     );
   }
   getDataByIndustryId(industryId) {
-    return this.http.get(environment.api + 'lookup/getDealData/'+industryId).pipe(map((res) => {
+    return this.http.get(environment.api + 'lookup/getDealData/' + industryId).pipe(map((res) => {
       return res;
     })
     );
   }
-  
-  
-  
+
+
 }

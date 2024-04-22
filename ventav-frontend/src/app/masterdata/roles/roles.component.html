@@ -56,6 +56,9 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <div class="text-center mt-4 notFound" *ngIf="dataSource.length==0" >
+            <h2>No Record Found</h2>
+        </div>
     </div>
 </div>
 <div class="row my-2">

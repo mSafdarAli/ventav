@@ -48,8 +48,8 @@ export class AddIndustryComponent implements OnInit, OnDestroy {
       active: [true],
       ticketText: ['', [Validators.required]],
       imageText: ['', [Validators.required]],
-      question: [''],
-      options: [''],
+      question: [null],
+      options: [null],
       buttonColorCode: [''],
       textColorCode: ['']
     });
@@ -202,8 +202,10 @@ export class AddIndustryComponent implements OnInit, OnDestroy {
   submit() {
     if (this.form.valid) {
       const html = (typeof this.form.value.imageText == "object") ? toHTML(this.form.value.imageText) : this.form.value.imageText;
+      const ticketText = (typeof this.form.value.ticketText == "object") ? toHTML(this.form.value.ticketText) : this.form.value.ticketText;
       const data = Object.assign({}, this.form.value);
       data.imageText = html;
+      data.ticketText = ticketText;
       data.questions = this.questions;
       if (this.industryId != null) {
         const sub = this.industryService.updateIndustry(this.industryId, this.payloadTicket, this.payloadOther, data).subscribe({

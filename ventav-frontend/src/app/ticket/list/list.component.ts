@@ -10,6 +10,7 @@ import { MessageService } from 'src/_services/message.service';
 import { LookUpService } from 'src/_services/rest/lookup.service';
 import { PaginationService } from 'src/_services/rest/pagination.service';
 import { TicketService } from 'src/_services/rest/ticket.service';
+import { changeDateToApiFormat } from 'src/_services/utility';
 
 @Component({
   selector: 'app-list',
@@ -17,36 +18,40 @@ import { TicketService } from 'src/_services/rest/ticket.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  displayedColumns: string[] = ['ticketNumber','couponNumber','name','redeemOnline','locationRedeemed','merchant','deal','dailyDealFirm', 'industry','createdAt','action'];
+  displayedColumns: string[] = ['ticketNumber', 'couponNumber', 'name', 'redeemOnline', 'locationRedeemed', 'merchant', 'deal', 'dailyDealFirm', 'industry', 'createdAt', 'action'];
   dataSource: any[] = [];
   pager: Pagination;
   routSub: Subscription = null;
-  queryParams:Params={};
-  searchForm:FormGroup;
-  selectIndustry:lookupdata[]=[];
-  selectDeal:lookupdata[]=[];
-  moment=moment;
+  queryParams: Params = {};
+  searchForm: FormGroup;
+  selectIndustry: lookupdata[] = [];
+  selectRedeemOnline: lookupdata[] = [];
+  selectDeal: lookupdata[] = [];
+  moment = moment;
   constructor(
     private ticektService: TicketService,
     private messageService: MessageService,
     private toaster: ToastrService,
-    private pagination:PaginationService,
-    private route:ActivatedRoute,
-    private formBuilder:FormBuilder,
-    private router:Router,
-    private lookupService:LookUpService
+    private pagination: PaginationService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private lookupService: LookUpService
   ) {
-    this.searchForm=this.formBuilder.group({
-      q:[''],
-      dealId:[''],
-      industryId:[''],
+    this.searchForm = this.formBuilder.group({
+      q: [''],
+      redeemOnline: [''],
+      industryId: [''],
+      dealId: [''],
+      createdAt__gte: [''],
+      createdAt__lte: ['']
     })
     this.routSub = this.route.queryParams.subscribe((qparams) => {
-      this.queryParams = Object.assign({},qparams);
-      if(this.queryParams){
+      this.queryParams = Object.assign({}, qparams);
+      if (this.queryParams) {
         this.getAllTickets(this.queryParams)
       }
-      else{
+      else {
         this.getAllTickets();
       }
     });
@@ -54,23 +59,34 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllDealLookup();
+    this.selectRedeemOnline = this.lookupService.getRedeemStatus();
     this.getAllIndustryLookup();
   }
   filter(event) {
     let obj;
     for (const [key, value] of Object.entries(this.searchForm.value)) {
       if (value != '') {
-        obj=Object.assign({},obj);
-        obj[key] = value;
+        obj = Object.assign({}, obj);
+        if (typeof value == 'object' && value!=null) {
+          if (key == 'createdAt__gte' || key == 'createdAt__lte') {
+            obj[key] = changeDateToApiFormat(value);
+          }
+          else {
+            obj[key] = value['value'];
+          }
+        }
+        else {
+          obj[key] = value;
+        }
       }
     }
+
     this.router.navigate([], {
       queryParams: obj
     });
   }
-  clearFilters(){
-    if(this.queryParams){
+  clearFilters() {
+    if (this.queryParams) {
       this.searchForm.reset();
       this.router.navigate([], {
         queryParams: {}
@@ -80,10 +96,10 @@ export class ListComponent implements OnInit {
   isObjectEmpty(objectName) {
     return Object.keys(objectName).length;
   }
-  getAllIndustryLookup(){
+  getAllIndustryLookup() {
     const sub = this.lookupService.getAllIndustries().subscribe({
       next: (res) => {
-        this.selectIndustry=res['data'];
+        this.selectIndustry = res['data'];
         sub.unsubscribe();
       },
       error: (res) => {
@@ -91,21 +107,27 @@ export class ListComponent implements OnInit {
       },
     });
   }
-  getAllDealLookup(){
-    const sub = this.lookupService.getAllDealLookup().subscribe({
-      next: (res) => {
-        this.selectDeal=res['data'];
-        sub.unsubscribe();
-      },
-      error: (res) => {
-        sub.unsubscribe();
-      },
-    });
+  getDeals() {
+    this.selectDeal = [];
+    if (this.searchForm.value.dealId.length > 2) {
+      const sub = this.lookupService.getAllDealLookup({ dealName: this.searchForm.value.dealId }).subscribe({
+        next: (res) => {
+          this.selectDeal = res['data'];
+          sub.unsubscribe();
+        },
+        error: (res) => {
+        },
+      });
+    }
   }
-  getAllTickets(params=null) {
+  displayFn(option) {
+    return option?.name;
+  }
+  getAllTickets(params = null) {
     const sub = this.ticektService.getAllTickets(params).subscribe({
       next: (res) => {
         this.dataSource = res['data'];
+        this.selectDeal = [];
         this.pager = this.pagination.compile(
           Object.assign({}, this.queryParams, { count: res['pagination'].total })
         );

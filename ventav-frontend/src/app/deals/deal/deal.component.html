@@ -37,7 +37,7 @@
         <div class="col-md-4 col-12">
           <div class="form-group">
             <lb-auto-complete appearance="outline" placeholder="Filter By Promoter" label="Filter By Promoter"
-              [multiple]="false" [clear]="false" [fControl]="searchForm.controls['promoterId']"
+              [multiple]="false" [clear]="false" [fControl]="searchForm.controls['promoterIds']"
               [options]="selectPromoter" (selectionChange)="filter(searchForm.value)">
             </lb-auto-complete>
           </div>
@@ -45,7 +45,7 @@
         <div class="col-md-4 col-12">
           <div class="form-group">
             <lb-auto-complete appearance="outline" placeholder="Filter By Industry" label="Filter By Industry"
-              [multiple]="false" [clear]="false" [fControl]="searchForm.controls['industryId']"
+              [multiple]="false" [clear]="false" [fControl]="searchForm.controls['industryIds']"
               [options]="selectIndustry" (selectionChange)="filter(searchForm.value)">
             </lb-auto-complete>
           </div>
@@ -146,7 +146,7 @@
                     [queryParams]="queryParams">
                     <i class="bi bi-pencil text-light"></i>
                   </button>
-                  <button class="btn btn-xs btn-secondary ms-1" routerLink="/coupons/generate/{{element._id}}" 
+                  <button *ngIf="!element.inHouseDeal" class="btn btn-xs btn-secondary ms-1" routerLink="/coupons/generate/{{element._id}}" 
                     [queryParams]="queryParams">
                     <i class="bi bi-postage text-light"></i>
                   </button>
@@ -164,7 +164,9 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
         </div>
-   
+        <div class="text-center mt-4 notFound" *ngIf="dataSource.length==0" >
+          <h2>No Record Found</h2>
+      </div>
       </div>
     </div>
   </div>

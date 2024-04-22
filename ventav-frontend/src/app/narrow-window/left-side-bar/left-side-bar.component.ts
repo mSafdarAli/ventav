@@ -129,6 +129,13 @@ export class LeftSideBarComponent implements OnInit {
       permission:'view'
     },
     {
+      label:'Customers',
+      icon: 'bi-ticket-perforated',
+      url: 'customers',
+      component:'customer',
+      permission:'view'
+    },
+    {
       label: 'User Management',
       icon: 'bi-people',
       url: 'user-management',

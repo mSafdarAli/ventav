@@ -9,38 +9,22 @@
           <div class="form-group">
             <mat-form-field class="w-100" appearance="legacy">
               <mat-label>Search Industry</mat-label>
-              <input
-                matInput
-                formControlName="q"
-                placeholder="Search Industry"
-                type="text"
-                (keydown.enter)="search(searchForm.value)"
-              />
-              <mat-icon matSuffix (click)="search(searchForm.value)"
-                >search</mat-icon
-              >
+              <input matInput formControlName="q" placeholder="Search Industry" type="text"
+                (keydown.enter)="search(searchForm.value)" />
+              <mat-icon matSuffix (click)="search(searchForm.value)">search</mat-icon>
             </mat-form-field>
           </div>
         </form>
       </div>
       <div class="col-md-2">
-        <button
-          type="button"
-          mat-ripple
-          class="btn btn-danger w-100 float-end"
-          (click)="clearFilters()"
-          *ngIf="isObjectEmpty(queryParams)"
-        >
+        <button type="button" mat-ripple class="btn btn-danger w-100 float-end" (click)="clearFilters()"
+          *ngIf="isObjectEmpty(queryParams)">
           Clear Filters
         </button>
       </div>
       <div class="col-md-2">
-        <button
-          type="button"
-          mat-ripple
-          class="btn btn-primary w-100 float-end"
-          routerLink="add" [queryParams]="queryParams"
-        >
+        <button type="button" mat-ripple class="btn btn-primary w-100 float-end" routerLink="add"
+          [queryParams]="queryParams">
           Add Industry
         </button>
       </div>
@@ -48,82 +32,61 @@
   </div>
 </div>
 <div class="row">
-  <div
-    [class.col-8]="animState == 'split'"
-    style="transition: all 0.2s ease-in-out"
-    [class.col-12]="animState == 'full'"
-  >
+  <div [class.col-8]="animState == 'split'" style="transition: all 0.2s ease-in-out"
+    [class.col-12]="animState == 'full'">
     <div class="card my-2">
       <div class="card-body">
         <div class="table-responsive">
-          <table
-          mat-table
-          [dataSource]="dataSource"
-          class="mat-elevation-z8 shadow-none"
-        >
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-          </ng-container>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 shadow-none">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="active">
-            <th mat-header-cell *matHeaderCellDef>Active</th>
-            <td mat-cell *matCellDef="let element">
-              <input
-                onclick="return false;"
-                type="checkbox"
-                class="form-check-input ms-2"
-                id="customCheck2"
-                [checked]="element.active"
-              />
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef>Action</th>
-            <td mat-cell *matCellDef="let element">
-              <div class="d-flex ms-2 ms-md-0">
-                <button
-                  class="btn btn-xs btn-secondary"
-                  routerLink="detial/{{ element._id }}"
-                  [queryParams]="queryParams"
-                >
-                  <i class="bi bi-eye"></i>
-                </button>
-                <button class="btn btn-xs btn-success mx-1" (click)="copyIframe(element._id)">
-                  <i class="bi bi-code-slash"></i>
-                </button>
-                <button
-                  class="btn btn-xs btn-warning mx-1"
-                  routerLink="edit/{{ element._id }}"
-                  [queryParams]="queryParams"
-                >
-                  <i class="bi bi-pencil text-light"></i>
-                </button>
-                <button
-                  class="btn btn-xs btn-danger"
-                  (click)="deleteIndustry(element._id)"
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-              </div>
-            </td>
-          </ng-container>
+            <ng-container matColumnDef="active">
+              <th mat-header-cell *matHeaderCellDef>Active</th>
+              <td mat-cell *matCellDef="let element">
+                <input onclick="return false;" type="checkbox" class="form-check-input ms-2" id="customCheck2"
+                  [checked]="element.active" />
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element">
+                <div class="d-flex ms-2 ms-md-0">
+                  <button class="btn btn-xs btn-secondary" routerLink="detial/{{ element._id }}"
+                    [queryParams]="queryParams">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button class="btn btn-xs btn-success mx-1" (click)="copyIframe(element._id)">
+                    <i class="bi bi-code-slash"></i>
+                  </button>
+                  <button class="btn btn-xs btn-warning mx-1" routerLink="edit/{{ element._id }}"
+                    [queryParams]="queryParams">
+                    <i class="bi bi-pencil text-light"></i>
+                  </button>
+                  <button class="btn btn-xs btn-danger" (click)="deleteIndustry(element._id)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <div class="text-center mt-4 notFound" *ngIf="dataSource.length==0" >
+            <h2>No Record Found</h2>
         </div>
-      
+        </div>
+
       </div>
-      
+
     </div>
-    
+
     <div class="row my-2">
       <div class="col-12">
-        <pagination-control
-          [pager]="pager"
-          [params]="queryParams"
-        ></pagination-control>
+        <pagination-control [pager]="pager" [params]="queryParams"></pagination-control>
       </div>
     </div>
   </div>

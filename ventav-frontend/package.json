@@ -29,6 +29,7 @@
     "@auth0/angular-jwt": "^5.0.2",
     "@kolkov/angular-editor": "^2.1.0",
     "@nguniversal/express-engine": "^14.2.0",
+    "angularx-qrcode": "^14.0.0",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
     "express": "^4.15.2",
